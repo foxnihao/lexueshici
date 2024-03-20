@@ -64,14 +64,16 @@ button:focus-visible {
 }
 #app {
   /* max-width: 1360px; */
-  /* max-height: 800px; */
-  max-width: 120rem;
-  max-height: 67.5rem;
+  box-sizing: border-box;
+  /* max-height: 800rem; */
+  /* max-width: 120rem; */
+  /* max-height: 67.5rem; */
   margin: 0 auto;
+  height: 950rem;
   padding: 5rem;
-  padding-top: 4.75rem;
+  /* padding-top: 4.75rem; */
   text-align: center;
-  background: pink;
+  /* background: pink; */
   
 }
 
