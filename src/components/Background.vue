@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <div class="nav"></div>
     <div class="body">
       <div class="left">
         <div class="imglefttop"><img src="../../src/assets/imgs/imglettop.png" /></div>
@@ -13,6 +15,7 @@
       </div>
 
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -24,16 +27,19 @@
 <style scoped>
 .body {
   width: 100%;
-  height: 700px;
+  height: 876rem;
   position: relative;
   opacity: 1;
-  background: rgba(255, 255, 255, 1);
   display: flex;
   /* align-items: center; */
   justify-content: center;
+  /* background: green; */
 
 }
-
+.nav{
+  height: 76rem;
+  background: rgb(194, 124, 124);
+}
 .left {
   flex: 1;
   /* background: red; */
@@ -59,7 +65,7 @@
     left: 0;
 
     img {
-      max-width: 160px;
+      max-width: 160rem;
       height: auto;
     }
   }
@@ -92,6 +98,9 @@
 .middle {
   flex: 4;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>
