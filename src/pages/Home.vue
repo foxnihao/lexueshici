@@ -1,27 +1,30 @@
 <template>
+  
   <!-- <navbar /> -->
   <div class="home">
+    
     <Background>
+      
       <template v-slot:default>
+        <navbar/>
         <div class="four-games">
           <div class="ga-box1">
             <img src="../../src/assets/imgs/bg1.png" class="game1 ga" />
-            <p class="p1">诗词 &nbsp;   飞花令</p>
+            <p class="p1">诗词 飞花令</p>
           </div>
           <div class="ga-box2"><img src="../../src/assets/imgs/bg2.png" class="game2 ga" />
-            <p class="p2">趣味   九宫格</p>
+            <p class="p2">趣味 九宫格</p>
           </div>
 
           <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
-            <p class="p3">上下   对对碰</p>
+            <p class="p3">上下 对对碰</p>
           </div>
           <div class="ga-box4"><img src="../../src/assets/imgs/bg4.png" class="game4 ga" />
-            <p class="p4">看图   猜诗词</p>
-          </div>
+            <p class="p4">看图 猜诗词</p>
           </div>
 
+        </div>
       </template>
-
     </Background>
   </div>
 </template>
@@ -29,27 +32,23 @@
 <script setup lang="ts">
 
 import Background from '../components/Background.vue';
+import navbar from '../components/navbar.vue';
 // TypeScript脚本区域，如果你需要定义一些数据或方法，请在这里添加
 </script>
 
 <style scoped>
 .four-games {
-  /* background-color: skyblue; */
-  padding-top: 65rem;
+  padding-top: 80px;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 50px;
-  background: white;
 }
 
 .ga-box1,
 .ga-box2,
 .ga-box3,
 .ga-box4 {
-  /* width: 45%; */
-  width: 515rem;
-  height: 309rem;
+  width: 45%;
   box-sizing: border-box;
   text-align: center;
   margin: 5px;
@@ -76,7 +75,7 @@ import Background from '../components/Background.vue';
   transform: translate(-50%, -50%);
   opacity: 1;
   /** 文本1 */
-  font-size: 68rem;
+  font-size: 68px;
   font-weight: 500;
   letter-spacing: 0px;
   line-height: 98.46px;

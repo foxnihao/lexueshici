@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="nav"></div>
+    <navbar></navbar>
     <div class="body">
       <div class="left">
         <div class="imglefttop"><img src="../../src/assets/imgs/imglettop.png" /></div>
@@ -19,6 +19,8 @@
 </template>
 
 <script setup lang="ts">
+import navbar from './navbar.vue';
+
 // import navbar from './navbar.vue';
 
 // TypeScript脚本区域，如果你需要定义一些数据或方法，请在这里添加
