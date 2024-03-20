@@ -6,21 +6,22 @@
         <div class="four-games">
           <div class="ga-box1">
             <img src="../../src/assets/imgs/bg1.png" class="game1 ga" />
-            <p class="p1">诗词 飞花令</p>
+            <p class="p1">诗词 &nbsp;   飞花令</p>
           </div>
           <div class="ga-box2"><img src="../../src/assets/imgs/bg2.png" class="game2 ga" />
-            <p class="p2">趣味 九宫格</p>
+            <p class="p2">趣味   九宫格</p>
           </div>
 
           <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
-            <p class="p3">上下 对对碰</p>
+            <p class="p3">上下   对对碰</p>
           </div>
           <div class="ga-box4"><img src="../../src/assets/imgs/bg4.png" class="game4 ga" />
-            <p class="p4">看图 猜诗词</p>
+            <p class="p4">看图   猜诗词</p>
+          </div>
           </div>
 
-        </div>
       </template>
+
     </Background>
   </div>
 </template>
@@ -33,17 +34,22 @@ import Background from '../components/Background.vue';
 
 <style scoped>
 .four-games {
-  padding-top: 50px;
+  /* background-color: skyblue; */
+  padding-top: 65rem;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 50px;
+  background: white;
 }
 
 .ga-box1,
 .ga-box2,
 .ga-box3,
 .ga-box4 {
-  width: 45%;
+  /* width: 45%; */
+  width: 515rem;
+  height: 309rem;
   box-sizing: border-box;
   text-align: center;
   margin: 5px;
@@ -70,7 +76,7 @@ import Background from '../components/Background.vue';
   transform: translate(-50%, -50%);
   opacity: 1;
   /** 文本1 */
-  font-size: 68px;
+  font-size: 68rem;
   font-weight: 500;
   letter-spacing: 0px;
   line-height: 98.46px;
