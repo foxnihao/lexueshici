@@ -1,8 +1,8 @@
 <template>
-
   <!-- <navbar /> -->
   <Background />
   <div class="home">
+
     <div class="four-games">
       <div class="ga-box1">
         <img src="../../src/assets/imgs/bg1.png" class="game1 ga" />
@@ -19,25 +19,28 @@
         <p class="p4">&nbsp;&nbsp;看图&nbsp; 猜诗词</p>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import Background from '../components/Background.vue';
 
+import Background from '../components/Background.vue';
+// TypeScript脚本区域，如果你需要定义一些数据或方法，请在这里添加
 </script>
 
 <style scoped>
 .home {
+  margin-top: 65rem;
   display: flex;
   justify-content: center;
+  padding-top: 76rem;
   /* 水平居中 */
 }
 
 .four-games {
   width: 1125rem;
   box-sizing: border-box;
-  padding-top: 65rem;
   display: grid;
   grid-template-rows: auto auto;
   grid-template-columns: auto auto;
@@ -46,14 +49,15 @@ import Background from '../components/Background.vue';
   column-gap: 71rem;
   /* 列间距 */
   background: white;
-  margin: auto 0;
 }
 
 .ga-box1,
 .ga-box2,
 .ga-box3,
 .ga-box4 {
-  width: 45%;
+  /* width: 45%; */
+  width: 515rem;
+  height: 309rem;
   box-sizing: border-box;
   text-align: center;
   margin: 5px;
@@ -79,6 +83,7 @@ import Background from '../components/Background.vue';
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 1;
+  /** 文本1 */
   height: 196rem;
   font-size: 68rem;
   font-weight: 500;

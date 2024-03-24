@@ -55,9 +55,8 @@ const handleThirdClick = () => {
 </script>
 <style scoped>
 .login {
-  padding-top: 29rem;
-  /* background: green; */
-  /* height: 800rem; */
+  padding-top: 76rem;
+  margin-top: 29rem;
   height: 100%;
   display: flex;
   align-items: center;
