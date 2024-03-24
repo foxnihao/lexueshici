@@ -1,35 +1,8 @@
 <template>
-  
+
   <!-- <navbar /> -->
   <Background />
   <div class="home">
-<<<<<<< HEAD
-    
-    <Background>
-      
-      <template v-slot:default>
-        <navbar/>
-        <div class="four-games">
-          <div class="ga-box1">
-            <img src="../../src/assets/imgs/bg1.png" class="game1 ga" />
-            <p class="p1">诗词 飞花令</p>
-          </div>
-          <div class="ga-box2"><img src="../../src/assets/imgs/bg2.png" class="game2 ga" />
-            <p class="p2">趣味 九宫格</p>
-          </div>
-
-          <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
-            <p class="p3">上下 对对碰</p>
-          </div>
-          <div class="ga-box4"><img src="../../src/assets/imgs/bg4.png" class="game4 ga" />
-            <p class="p4">看图 猜诗词</p>
-          </div>
-
-        </div>
-      </template>
-    </Background>
-=======
-
     <div class="four-games">
       <div class="ga-box1">
         <img src="../../src/assets/imgs/bg1.png" class="game1 ga" />
@@ -46,26 +19,15 @@
         <p class="p4">&nbsp;&nbsp;看图&nbsp; 猜诗词</p>
       </div>
     </div>
-
->>>>>>> a8d03e7 (解决了适配问题，完成信息界面)
   </div>
 </template>
 
 <script setup lang="ts">
-
 import Background from '../components/Background.vue';
-import navbar from '../components/navbar.vue';
-// TypeScript脚本区域，如果你需要定义一些数据或方法，请在这里添加
+
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-.four-games {
-  padding-top: 80px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-=======
 .home {
   display: flex;
   justify-content: center;
@@ -85,7 +47,6 @@ import navbar from '../components/navbar.vue';
   /* 列间距 */
   background: white;
   margin: auto 0;
->>>>>>> a8d03e7 (解决了适配问题，完成信息界面)
 }
 
 .ga-box1,
@@ -118,13 +79,8 @@ import navbar from '../components/navbar.vue';
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 1;
-  /** 文本1 */
-<<<<<<< HEAD
-  font-size: 68px;
-=======
   height: 196rem;
   font-size: 68rem;
->>>>>>> a8d03e7 (解决了适配问题，完成信息界面)
   font-weight: 500;
   letter-spacing: 0px;
   line-height: 98.46rem;
