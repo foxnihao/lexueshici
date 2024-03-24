@@ -1,7 +1,9 @@
 <template>
   
   <!-- <navbar /> -->
+  <Background />
   <div class="home">
+<<<<<<< HEAD
     
     <Background>
       
@@ -26,6 +28,26 @@
         </div>
       </template>
     </Background>
+=======
+
+    <div class="four-games">
+      <div class="ga-box1">
+        <img src="../../src/assets/imgs/bg1.png" class="game1 ga" />
+        <p class="p1"> &nbsp; &nbsp;诗词 &nbsp; 飞花令</p>
+      </div>
+      <div class="ga-box2"><img src="../../src/assets/imgs/bg2.png" class="game2 ga" />
+        <p class="p2">&nbsp;&nbsp;趣味&nbsp; 九宫格</p>
+      </div>
+
+      <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
+        <p class="p3">&nbsp;&nbsp;上下&nbsp; 对对碰</p>
+      </div>
+      <div class="ga-box4"><img src="../../src/assets/imgs/bg4.png" class="game4 ga" />
+        <p class="p4">&nbsp;&nbsp;看图&nbsp; 猜诗词</p>
+      </div>
+    </div>
+
+>>>>>>> a8d03e7 (解决了适配问题，完成信息界面)
   </div>
 </template>
 
@@ -37,11 +59,33 @@ import navbar from '../components/navbar.vue';
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 .four-games {
   padding-top: 80px;
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
+=======
+.home {
+  display: flex;
+  justify-content: center;
+  /* 水平居中 */
+}
+
+.four-games {
+  width: 1125rem;
+  box-sizing: border-box;
+  padding-top: 65rem;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  row-gap: 47rem;
+  /* 行间距 */
+  column-gap: 71rem;
+  /* 列间距 */
+  background: white;
+  margin: auto 0;
+>>>>>>> a8d03e7 (解决了适配问题，完成信息界面)
 }
 
 .ga-box1,
@@ -75,10 +119,15 @@ import navbar from '../components/navbar.vue';
   transform: translate(-50%, -50%);
   opacity: 1;
   /** 文本1 */
+<<<<<<< HEAD
   font-size: 68px;
+=======
+  height: 196rem;
+  font-size: 68rem;
+>>>>>>> a8d03e7 (解决了适配问题，完成信息界面)
   font-weight: 500;
   letter-spacing: 0px;
-  line-height: 98.46px;
+  line-height: 98.46rem;
   text-align: center;
   vertical-align: top;
 }
