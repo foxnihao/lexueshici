@@ -1,6 +1,10 @@
 <template>
   <div class="tabbox">
-    <div 
+    <div class="active">
+      <!-- <img src="@/assets/imgs/gabtn1.png" alt="">
+      <img src="@/assets/imgs/gabtn2.png" alt=""> -->
+      自主游玩</div>
+    <!-- <div 
       :style="{ backgroundColor: currentIndex === 0 ? bgColor : '', color: fontColor }" 
       class="btn" 
       @click="handleLeftClick"
@@ -12,43 +16,54 @@
       class="btn" 
       @click="handleRightClick"
     >
-      {{ rightContent }}
-    </div>
+      {{  rightContent  }}
+    </div> -->
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, defineProps } from 'vue';
+// import { onMounted, ref, defineProps } from 'vue';
 
-const props = defineProps(['foo', 'bgColor', 'fontColor', 'leftContent', 'rightContent', 'currentIndex']);
+// const props = defineProps(['foo', 'bgColor', 'fontColor','currentIndex']);
 
-const currentIndex = ref(props.currentIndex);
-const bgColor = ref(props.bgColor); 
-const fontColor = ref(props.fontColor); 
-const leftContent = props.leftContent;
-const rightContent = props.rightContent;
+// const currentIndex = ref(props.currentIndex);
+// const bgColor = ref(props.bgColor); 
+// const fontColor = ref(props.fontColor); 
+// const leftContent = "自主游玩"
+// const rightContent ="匹配游玩"
 
-const handleLeftClick = () => {
-  currentIndex.value = 0; // 切换为左边
-};
+// const handleLeftClick = () => {
+//   currentIndex.value = 0; // 切换为左边
+// };
 
-const handleRightClick = () => {
-  currentIndex.value = 1; // 切换为右边
-};
+// const handleRightClick = () => {
+//   currentIndex.value = 1; // 切换为右边
+// };
 
-onMounted(() => {
-  console.log(props);
-});
+
+// onMounted(() => {
+//   currentIndex.value = props.currentIndex;
+//   console.log(props);
+// });
 </script>
 
 <style scoped>
-.tabbox{
-  position: absolute;
-  top: 29rem;
+.active{
+  border: 3rem solid rgba(236, 196, 135, 1);
+  border-radius: 15rem;
+
+width: 280rem;
+height: 93rem;
+opacity: 1;
+
+}
+/* .tabbox{
   display: flex;
   justify-content: space-between;
   gap: 50rem; /* 两个按钮之间的间距为 50rem */
-}
+
+
 .btn {
   width: 271.86rem;
   height: 92rem;
@@ -65,5 +80,5 @@ onMounted(() => {
   line-height: 52.13rem;
   color: rgba(107, 0, 0, 1);
   cursor: pointer; /* 添加鼠标指针样式，表明可点击 */
-}
+} 
 </style>
