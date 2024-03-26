@@ -1,10 +1,11 @@
 <template>
     <nav class="navbar">
       <router-link to="/" class="navbar-brand">
+        <img src="../assets/imgs/logo2.png" class="logo"/>
         <img src="../assets/imgs/logo.png" alt="Logo" class="logo"/>
       </router-link>
       <div class="navbar-end">
-        <router-link to="/">
+        <router-link to="/me">
           <img src="../assets/imgs/ava.png" alt="Profile" class="icon"/>
         </router-link>
       </div>
@@ -31,13 +32,13 @@
   
   .navbar-brand{
     position: fixed;
-    top:0;
-    height: 76rem;
+    top:20rem;
+    height: 36rem;
     left:20rem;
   }
   .navbar-end{
     position: fixed;
-    top:10px;
+    top:16px;
     height: 76rem;
     right: 20rem;
   }
@@ -47,10 +48,11 @@
     
     max-height: 100%;
     width:auto;
+    padding-left: 10rem;
     
   }
   .icon {
-    max-height: 80%;
+    max-height: 60%;
     width: auto;
   }
   </style>
