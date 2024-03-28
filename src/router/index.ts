@@ -5,6 +5,7 @@ import Background from '../components/Background.vue'
 import TopTab from '@/components/TopTab.vue'
 import FlyingWord from '@/pages/FlyingWord.vue'
 import game4 from '@/pages/game4.vue'
+import UpDown from '@/pages/UpDown.vue'
 const routes = [
   {
     path: '/',
@@ -22,6 +23,10 @@ const routes = [
     path:'/lookguess',
     name:'lookguess',
     component:game4
+  },{
+    path:'/updown',
+    name:'updown',
+    component: UpDown
   }
 
 ]
