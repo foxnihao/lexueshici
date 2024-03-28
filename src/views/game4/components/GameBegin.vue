@@ -15,7 +15,8 @@
   })
   
   const handleEnterPersonGame = ()=>{
-    store.changeFlywordState(1);
+    store.changeGameState(1);
+    store.init_Store();
   }
   
   

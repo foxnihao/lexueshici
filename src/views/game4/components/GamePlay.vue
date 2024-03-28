@@ -1,25 +1,25 @@
 <template>
     <div class="game-box">
       <div class="top">
-        <p class="p1">第一题 </p>
+        <p class="p1">第{{currentNumber}}题 </p>
         
         <p class="p2">15</p>
 
       </div>
       <div class="gbody">
         <div class="left">
-            <img src="../imgs/pic1.png" class="pic" alt="">
+            <img :src="currentImage" class="pic" alt="">
 
         </div>
 
         <div class="right">
-            <div v-for="(option,index) in options" :key="index" class="op-box">
+            <div v-for="(option,index) in options" :key="index" class="op-box" @click="handleClick(index)" :class="{ 'clicked': ischoosed(index), 'hoverable': !ischoosed(index) }">
             <div class="content">{{ option }}</div>
             </div>
 
             <div class="shift-box">
-                <div class="shift-button">下一题</div>
-                <div class="shift-button">上一题</div>
+                <div class="shift-button" @click="next_q">下一题</div>
+                <div class="shift-button" @click="last_q">上一题</div>
             </div>
 
         </div>
@@ -28,7 +28,46 @@
     </div>
   </template>
   <script setup lang="ts">
+import { computed, ref } from 'vue';
+import {useGameStore} from '../../../store/game4'
+  
     const options=["A. 白毛浮绿水，红掌拨清波","B. 床前明月光，疑是地上霜","C. 牧童骑黄牛，歌声振林樾","D. 举头望明月，低头思故乡"]
+    const choose=ref(-1);
+    const store=useGameStore();
+    const handleClick=(index: number)=>{
+        choose.value=index;
+    }
+    const ischoosed=(index: number)=>{
+      if(index===choose.value) return true
+      else return false
+    }
+    const numbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+    const images = [
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+  '../imgs/pic1.png',
+];
+    const currentNumber = computed(() => numbers[store.q_id - 1]);
+    const currentImageURL = computed(() => images[store.q_id - 1]);
+    const currentImage=new URL(currentImageURL.value,import.meta.url).href;
+    const next_q=()=>{
+        store.ans_stack.push(choose.value);
+        choose.value=-1;
+        if(store.q_id==3) store.changeGameState(2);
+        store.q_id++;
+    }
+    const last_q=()=>{
+        if(store.ans_stack.length===0) return null;
+        choose.value=store.ans_stack.pop() as number;
+        store.q_id--;
+    }
   </script>
   
   
@@ -103,6 +142,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s;
+    cursor: pointer;
   }
 
   .op-box .content{
@@ -110,7 +151,15 @@
     font-weight: 400;
     color: rgba(0, 15, 66, 1)
   }
-  
+
+
+  .op-box.hoverable:hover {
+  background-color: rgb(220, 234, 239); /* 鼠标悬停时的背景颜色 */
+}
+
+.op-box.clicked {
+  background-color: rgb(183, 207, 214); /* 点击后的背景颜色 */
+}
   .right .shift-box{
     height: 72rem;
     width: 612rem;
