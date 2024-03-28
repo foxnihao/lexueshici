@@ -1,14 +1,16 @@
 <template>
+
   <div class="game-box">
     <div class="top">
       <p class="p1">本文抽到的字为 </p>
       <img src="../imgs/font.png" alt="">
-      <p class="p2">到你啦！</p>
-      <p>15</p>
     </div>
     <div class="middle">
       <div class="dialog">
         <div class="right">
+          <div class="collect1">
+            <el-rate v-model="value1" :max=1 :void-color="` rgba(166, 166, 166, 1)`" :colors="colors" clearable />
+          </div>
           <img src="../imgs/dialogr.png" class="dialogr" alt="">
           <img src="../imgs/ava1.png" class="avar" alt="">
           <div class="contentr">
@@ -19,6 +21,9 @@
         <div class="left">
           <img src="../imgs/ava2.png" class="aval" alt="">
           <img src="../imgs/dialogl.png" class="dialogl" alt="">
+          <div class="collect2">
+            <el-rate v-model="value2" :max=1 :void-color="` rgba(166, 166, 166, 1)`" :colors="colors" clearable />
+          </div>
           <div class="contentl">
             <p class="up">言入黄花川，每逐青溪水。 </p>
             <p class="down">--王维《青溪》</p>
@@ -33,32 +38,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-const poetries = [
-  { verse: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》' },
-  { "verse": "当窗理云鬓，对镜贴花黄。", "origin": "--《木兰辞》" },
-  { "verse": "采莲南塘秋，莲花过人头。", "origin": "--《西洲曲》" },
-  { "verse": "人归落雁后，思发在花前。", "origin": "--薛道衡《人日思归》" },
-  { "verse": "暮江平不动，春花满正开。", "origin": "--杨广《春江花月夜》" },
-  { "verse": "花须连夜发，莫待晓风吹。", "origin": "--武则天《催花诗》" },
-  { "verse": "他乡共酌金花酒，万里同悲鸿雁天。", "origin": "--卢照邻《九月九日玄武山旅眺》" },
-  { "verse": "解落三秋叶，能开二月花。", "origin": "--李峤《风》" },
-  { "verse": "江流宛转绕芳甸，月照花林皆似霰。", "origin": "--张若虚《春江花月夜》" },
-  { "verse": "昨夜闲潭梦落花，可怜春半不还家。", "origin": "--张若虚《春江花月夜》" },
-  { "verse": "火树银花合，星桥铁锁开。", "origin": "--苏味道《正月十五夜》" },
-];
-
-const mypoetries = ref([
-  { verse: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独钓》' }
-])
-const getPoetry = () => {
-  const randomIndex = Math.floor(Math.random() * poetries.length);
-  return [poetries[randomIndex]];
-}
+import { ref } from 'vue'
+import { ElRate } from 'element-plus'
+const value1 = ref(0)
+// const colors = ref(["rgba(255, 195, 0, 1)"])
+const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
+const value2 = ref(0)
 </script>
 
 
 <style scoped>
+::v-deep .el-icon svg {
+  height: 3em;
+  width: 3em;
+}
+
 .game-box {
   width: 1261rem;
   height: 642rem;
@@ -75,6 +69,8 @@ const getPoetry = () => {
   border-bottom: 1rem solid rgba(184, 160, 121, 1);
   display: flex;
   align-items: center;
+  justify-content: center;
+  ;
 
   p {
     font-size: 24rem;
@@ -89,15 +85,6 @@ const getPoetry = () => {
     height: 55.37rem;
     margin-left: 15rem;
 
-  }
-
-  .p1 {
-    margin-left: 513rem;
-  }
-
-  .p2 {
-    margin-left: 299rem;
-    margin-right: 50rem;
   }
 }
 
@@ -165,6 +152,24 @@ const getPoetry = () => {
   color: rgba(77, 23, 0, 1);
 }
 
+.collect1,
+.collect2 {
+  /* width: 65rem;
+  height: 42.75rem; */
+}
+
+.collect1 {
+  position: absolute;
+  right: 755rem;
+  top: 77rem;
+}
+
+.collect2 {
+  position: absolute;
+  left: 620rem;
+  top: 115rem;
+}
+
 .up {
   display: flex;
   justify-content: flex-start;
@@ -196,6 +201,9 @@ const getPoetry = () => {
     vertical-align: bottom;
   }
 }
+
+
+
 
 .bottom {
   position: absolute;

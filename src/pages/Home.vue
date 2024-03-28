@@ -13,9 +13,11 @@
         <p class="p2">&nbsp;&nbsp;趣味&nbsp; 九宫格</p>
       </div>
 
-      <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
+      <router-link to="/updown" >
+        <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
         <p class="p3">&nbsp;&nbsp;上下&nbsp; 对对碰</p>
       </div>
+      </router-link>
       <router-link to="/lookguess" class="ga-box4"><img src="../../src/assets/imgs/bg4.png" class="game4 ga" />
         <p class="p4">&nbsp;&nbsp;看图&nbsp; 猜诗词</p>
       </router-link>

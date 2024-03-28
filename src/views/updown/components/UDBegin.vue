@@ -1,28 +1,29 @@
 <template>
-  <div class="content">
-    <img src="@/views/flyword/imgs/bg1.png" alt="">
+  <div class="content" >
+    <img src="../imgs/bg1.png" alt="">
     <div class="btn" @click="handleEnterPersonGame">{{ store.beginState }}</div>
   </div>
 </template>
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useStateStore } from '@/store/index.ts'
+import {useStateStore}  from '@/store/index.ts'
 const store = useStateStore();
-onMounted(() => {
-  console.log("ss", store.beginState)
+onMounted(()=>{
+  console.log("ss",store.beginState)
 })
 
-const handleEnterPersonGame = () => {
+const handleEnterPersonGame = ()=>{
   console.log("游玩还是匹配")
-  if (store.beginState === "开始游玩") {
-    store.changeFlywordState(1);
-  } else {
-    setTimeout(() => {
+  if(store.beginState==="开始游玩"){
+    store.changeUpdownState(1);
+    console.log("ud",store.updownState)
+  }else{
+    setTimeout(()=>{
       store.changeBeginState("匹配中...")
-    }, 1000)
-    setTimeout(() => {
-      store.changeFlywordState(3);
-    }, 3000)
+    },1000)
+    setTimeout(()=>{
+      store.changeUpdownState(3);
+    },3000)
 
   }
 }
@@ -47,7 +48,7 @@ const handleEnterPersonGame = () => {
     width: 362rem;
     height: 134rem;
     border-radius: 10rem;
-    background: rgba(251, 243, 230, 1);
+    background: rgba(247, 238, 235, 1);
     text-align: center;
     font-size: 48rem;
     font-weight: 400;

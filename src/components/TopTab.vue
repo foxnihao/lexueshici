@@ -1,25 +1,16 @@
 <template>
   <div class="tabbox">
-    <div  v-if="currentIndex === 0"  class="btn" :class="{ active: currentIndex === 0 }" 
-    :style="{backgroundColor:bgColor,color: fontColor}"   @click="handleLeftClick1">
-      <img src="@/assets/imgs/gabtn1.png" class="imgleft" alt="">
-      <img src="@/assets/imgs/gabtn2.png" class="imgright" alt="">
-      {{ leftContent }}
+    <div v-if="currentIndex === 0" >
+      <img :src="imgl"  class="btnimg" alt="" @click="handleLeftClick1">
     </div>
 
-    <div class="btn" v-if="currentIndex === 1" 
-      @click="handleLeftClick2">
+    <div class="btn" v-if="currentIndex === 1" @click="handleLeftClick2"  :style="{ color: props.fontColor }">
       {{ leftContent }}
     </div>
-    
-    <div  v-if="currentIndex === 1"  class="btn" :class="{ active: currentIndex === 1 }" 
-    :style="{backgroundColor:bgColor,color: fontColor}">
-      <img src="@/assets/imgs/gabtn1.png" class="imgleft" alt="">
-      <img src="@/assets/imgs/gabtn2.png" class="imgright" alt="">
-      {{ rightContent }}
+    <div v-if="currentIndex === 1" >
+      <img :src="imgr"  class="btnimg" alt="" @click="handleRightClick2" >
     </div>
-    <div class="btn" v-if="currentIndex === 0" 
-      @click="handleRightClick1">
+    <div class="btn" v-if="currentIndex === 0" @click="handleRightClick1"  :style="{ color: props.fontColor }">
       {{ rightContent }}
     </div>
 
@@ -27,55 +18,66 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch,defineProps,defineEmits } from 'vue';
-import {useStateStore}  from '@/store/index.ts'
+import { onMounted, ref, watch, defineProps, defineEmits } from 'vue';
+import { useStateStore } from '@/store/index.ts'
 const emits = defineEmits(['update:currentIndex']); // 定义需要向父组件发送的自定义事件
-const props = defineProps(['foo', 'bgColor', 'fontColor', 'currentIndex']);
+const props = defineProps(['imgl','imgr','fontColor']);
 const currentIndex = ref(0);
-const bgColor = ref(props.bgColor);
-const fontColor = ref(props.fontColor);
+const imgl = ref();
+const imgr = ref();
 const leftContent = "自主游玩"
 const rightContent = "匹配游玩"
+const fontColor = props.fontColor
 const store = useStateStore();
-watch(currentIndex, (newVal) => {
-  console.log("emit")
-    emits('update:currentIndex', newVal); // 向父组件发送自定义事件，并传递新的 currentIndex 值
-  });
-  
+
+
+onMounted(()=>{
+  imgl.value = `../src${props.imgl}`
+  imgr.value = `../src${props.imgr}`
+  console.log("top",props)
+  console.log(import.meta.url)
+})
+
 const handleLeftClick1 = () => {
   currentIndex.value = 0; // 切换为左边
   store.changeBeginState("开始游玩")
+  store.changeFlywordState(0)
+  store.changeUpdownState(0)
 };
 
 const handleLeftClick2 = () => {
   currentIndex.value = 0; // 切换为左边
   store.changeBeginState("开始游玩")
   store.changeFlywordState(0)
+  store.changeUpdownState(0)
 };
 
 const handleRightClick1 = () => {
   currentIndex.value = 1; // 切换为右边
   store.changeBeginState("开始匹配")
-  store.changeFlywordState(1)
+  store.changeFlywordState(0)
+  store.changeUpdownState(0)
 };
 const handleRightClick2 = () => {
   currentIndex.value = 1; // 切换为右边
+  store.changeBeginState("开始匹配")
+  store.changeFlywordState(0)
+  store.changeUpdownState(0)
 };
 
 
-onMounted(() => {
-  // currentIndex.value = props.currentIndex;
-  console.log(props);
-});
+
 </script>
 
 <style scoped>
-.tabbox{
+.tabbox {
   width: 598rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 50rem;
 }
+
 .active {
   border: 3rem solid rgba(236, 196, 135, 1);
   border-radius: 21rem;
@@ -100,11 +102,14 @@ onMounted(() => {
 }
 
 
+.btnimg{
+  width:300rem;
+}
 
 
 .btn {
   width: 276.86rem;
-  height: 83.39rem;
+  /* height: 83.39rem; */
   flex: 1;
   display: flex;
   justify-content: center;

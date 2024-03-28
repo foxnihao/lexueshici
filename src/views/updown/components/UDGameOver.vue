@@ -3,28 +3,29 @@
     <p class="over-message">{{ successMessage }}</p>
     <div class="over-img">
       <img src="@/assets/imgs/success.png" alt="">
-      <p>共答出</p>
-      <p>10句诗词</p>
+      <p>答对4题</p>
+      <p>正确率80%</p>
     </div>
     <div class="over-btn">
       <img src="../imgs/btnleft.png" alt="" @click="handleAgain">
-      <img src="../imgs/btnright.png"  @click="handleCheck" alt="">
+      <img src="../imgs/btnright.png" @click="handleCheck" alt="">
 
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useStateStore } from '@/store';
 const store = useStateStore()
 const successMessage = ref("恭喜你获得胜利！！")
-const handleAgain = ()=>{
+const handleAgain = () => {
   console.log("点击")
-  store.changeFlywordState(0)
+  store.changeUpdownState(0)
 }
 
-const handleCheck = ()=>{
-  store.changeFlywordState(4)
+const handleCheck = () => {
+  store.changeUpdownState(3)
 }
 
 </script>
@@ -36,7 +37,7 @@ const handleCheck = ()=>{
   width: 1261rem;
   height: 642rem;
   border-radius: 10rem;
-  background: rgba(251, 243, 230, 1);
+  background: rgba(247, 238, 235, 1);
 
   display: flex;
   flex-direction: column;
@@ -49,7 +50,7 @@ const handleCheck = ()=>{
   font-size: 48rem;
   font-weight: 400;
   line-height: 69.5rem;
-  color: rgba(77, 23, 0, 1);
+  color: rgba(107, 0, 0, 1);
 
 }
 
@@ -61,11 +62,11 @@ const handleCheck = ()=>{
   }
 
   p {
-    width: 205rem;
+    /* width: rem; */
     font-size: 48rem;
     font-weight: 400;
     line-height: 69.5rem;
-    color: rgba(77, 23, 0, 1);
+    color: rgba(107, 0, 0, 1);
   }
 }
 
@@ -73,8 +74,9 @@ const handleCheck = ()=>{
   display: flex;
   gap: 52rem;
   margin-top: 20rem;
+
   img {
-    width: 256rem;
+    width: 260rem;
     /* height: 145rem; */
     opacity: 1;
 

@@ -1,10 +1,15 @@
 <template>
   <div class="game-box">
     <div class="top">
+      <p>2</p>
+      <img src="../imgs/ava2.png" alt="">
       <p class="p1">本文抽到的字为 </p>
       <img src="../imgs/font.png" alt="">
+      
+      <img src="../imgs/ava1.png" class="aval" alt="">
+      <p>3</p>
       <p class="p2">到你啦！</p>
-      <p>15</p>
+      <p style="margin-right: 22rem;">15</p>
     </div>
     <div class="middle">
       <div class="dialog">
@@ -70,11 +75,14 @@ const getPoetry = () => {
 }
 
 .top {
-  width: 1261rem;
+  box-sizing: border-box;
+  width: 100%;
   height: 84rem;
+  padding-left: 375rem;
   border-bottom: 1rem solid rgba(184, 160, 121, 1);
   display: flex;
   align-items: center;
+  justify-content: space-around;
 
   p {
     font-size: 24rem;
@@ -92,12 +100,12 @@ const getPoetry = () => {
   }
 
   .p1 {
-    margin-left: 513rem;
+    /* margin-left: 513rem; */
   }
 
   .p2 {
-    margin-left: 299rem;
-    margin-right: 50rem;
+    margin-left: 162rem;
+    margin-right: 46rem;
   }
 }
 
@@ -196,6 +204,9 @@ const getPoetry = () => {
     vertical-align: bottom;
   }
 }
+
+
+
 
 .bottom {
   position: absolute;
