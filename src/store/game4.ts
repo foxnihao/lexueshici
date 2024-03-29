@@ -14,6 +14,8 @@ export const useGameStore = defineStore("Game4", () => {
   };
 
   const ans_stack = ref<number[]>([]);
+  
+  const ans_right=ref([0,1,2]);
 
   const q_id=ref(-1);
 
@@ -22,5 +24,5 @@ export const useGameStore = defineStore("Game4", () => {
     ans_stack.value.length=0;
   }
 
-  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id };
+  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id,ans_right };
 });

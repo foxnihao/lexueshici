@@ -15,6 +15,7 @@ import TopTab_g from '@/components/TopTab_g.vue'
 import GameBegin from '@/views/game4/components/GameBegin.vue'
 import GameOver from '@/views/game4/components/GameOver.vue';
 import GamePlay from '@/views/game4/components/GamePlay.vue'
+import GameBack from '@/views/game4/components/GameBack.vue';
 import { useGameStore } from '@/store/game4.ts'
 import { markRaw, onMounted, ref, watch } from 'vue';
 const tabIndex = ref(0);
@@ -35,6 +36,9 @@ watch(() => store.GameState, (newstate) => {
             break;
         case 2:
             nowComponent.value = GameOver;
+            break;
+        case 3:
+            nowComponent.value=GameBack;
             break;
         default:
             nowComponent.value = GameBegin;

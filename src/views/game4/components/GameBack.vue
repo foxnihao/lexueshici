@@ -1,18 +1,14 @@
 <template>
     <div class="game-box">
       <div class="top">
-        <div v-if="isDuelGame" class="player_box">
-          <p>{{ player1_score }}</p>
-          <img src="../imgs/player1.png" class="player_pic">
-        </div>
         <p class="p1">第{{currentNumber}}题 </p>
-        <div v-if="isDuelGame" class="player_box">
-          
-          <img src="../imgs/player2.png" class="player_pic">
-          <p>{{ player2_score }}</p>
-        </div>
         
-        <p class="p2">15</p>
+        <img
+      :src="isFavorited ? starImg : starNImg"
+      @click="toggleFavorite"
+      alt="favorite"
+      class="star"
+    />
 
       </div>
       <div class="gbody">
@@ -22,12 +18,12 @@
         </div>
 
         <div class="right">
-            <div v-for="(option,index) in options" :key="index" class="op-box" @click="handleClick(index)" :class="{ 'clicked': ischoosed(index), 'hoverable': !ischoosed(index) }">
-            <div class="content">{{ option }}</div>
+            <div v-for="(option,index) in options" :key="index" class="op-box"  :class="color_class(index)">
+                <div class="content">{{ option }}</div>
             </div>
 
             <div class="shift-box">
-                <div class="shift-button" @click="next_q">{{isLastQuestion?'结束':'下一题'}}</div>
+              <div class="shift-button" @click="next_q">{{isLastQuestion?'结束':'下一题'}}</div>
                 <div class="shift-button" @click="last_q">上一题</div>
             </div>
 
@@ -41,26 +37,15 @@ import { computed, ref } from 'vue';
 import {useGameStore} from '../../../store/game4'
   
     const options=["A. 白毛浮绿水，红掌拨清波","B. 床前明月光，疑是地上霜","C. 牧童骑黄牛，歌声振林樾","D. 举头望明月，低头思故乡"]
-    const choose=ref(-1);
+
     const store=useGameStore();
-    const handleClick=(index: number)=>{
-        choose.value=index;
-    }
-    const isDuelGame=computed(()=>store.beginState==="开始匹配");
-    const total_questions=ref(3);
-    const isLastQuestion = computed(() => store.q_id === total_questions.value);
-    const ischoosed=(index: number)=>{
-      if(index===choose.value) return true
-      else return false
-    }
-    const player1_score=ref(0);
-    const player2_score=ref(0);
+
     const numbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
     const images = [
   '../imgs/pic1.png',
   '../imgs/pic2.png',
   '../imgs/pic3.png',
-  '../imgs/pic4.png',
+  '../imgs/pic1.png',
   '../imgs/pic1.png',
   '../imgs/pic1.png',
   '../imgs/pic1.png',
@@ -68,41 +53,48 @@ import {useGameStore} from '../../../store/game4'
   '../imgs/pic1.png',
   '../imgs/pic1.png',
 ];
-    const player2_buff=[0,1,0,0,1,1,0,0,1,0];
+
     const currentNumber = computed(() => numbers[store.q_id - 1]);
     const currentImageURL = computed(() => images[store.q_id - 1]);
     const currentImage=new URL(currentImageURL.value,import.meta.url).href;
+    const total_questions=ref(3);
+    const isLastQuestion = computed(() => store.q_id === total_questions.value);
+    const isRight=computed(()=>{
+        if(store.ans_right[store.q_id-1]===store.ans_stack[store.q_id-1]) return true;
+        else return false;
+    })
 
-    const max_q=ref(0);
+    const color_class=(index:number)=>{
+        if(isRight.value){
+            if(index===store.ans_right[store.q_id-1]) return 'right_color'//对
+            else return 'default_color';//默认
+        }
+        else{
+            if(index===store.ans_right[store.q_id-1]) return 'right_color'//对
+            else if(index===store.ans_stack[store.q_id-1]) return 'wrong_color' //错
+            else return 'default_color' //默认
+        }
+        
+    }
     const next_q=()=>{
-      if(store.q_id>max_q.value) {
-        max_q.value=store.q_id;
-        
-        if(store.ans_right[store.q_id-1]===choose.value) player1_score.value++;//对的就加分
-        player2_score.value+=player2_buff[store.q_id-1]
-      }
-        store.ans_stack[store.q_id-1]=choose.value;
-        
 
-        
-          if(isLastQuestion.value) {
-            setTimeout(() => {
-    // 这里的代码会在1秒后执行
-    store.changeGameState(2);
-  }, 1000);
-
-            }
-        choose.value=store.ans_stack[store.q_id];
+        if(isLastQuestion.value) store.changeGameState(0);//看完回到初始界面
         store.q_id++;
-
-        
+        isFavorited.value=false;
     }
     const last_q=()=>{
         if(store.ans_stack.length===0) return null;
         store.q_id--;
-        choose.value=store.ans_stack[store.q_id-1];
+
         
     }
+
+    const isFavorited = ref(false);
+    const toggleFavorite = () => {
+      isFavorited.value = !isFavorited.value;
+    };
+    const starImg = new URL('../imgs/star.png', import.meta.url).href;
+const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
   </script>
   
   
@@ -122,9 +114,7 @@ import {useGameStore} from '../../../store/game4'
     height: 84rem;
     border-bottom: 1rem solid rgba(78, 123, 138, 1);
     display: flex;
-    justify-content: center; /* 水平居中 */
     align-items: center;
-    gap:48rem;
   
     p {
       font-size: 24rem;
@@ -134,36 +124,22 @@ import {useGameStore} from '../../../store/game4'
     }
   
   
-    
+    .p1 {
+      margin-left: 570rem;
+    }
   
     .p2 {
-      position: absolute;
-      right: 44rem;
+      margin-left: 500rem;
     }
   }
 
-  .player_box{
-    width: 104rem;
-    height: 50rem;
-    display: flex;
-    flex-direction: row;
-    gap:34rem;
-    p{
-      font-size: 36rem;
-font-weight: 400;
-letter-spacing: 0rem;
-line-height: 52.13rem;
-color: rgba(0, 15, 66, 1);
-
-    }
-    .player_pic{
-      max-width: 50rem;
-      max-height: 50rem;
-    }
-
+  .star{
+    position:absolute;
+    cursor:pointer;
+    right:25.5rem;
+    max-height:42.75rem;
+    max-width:45rem;
   }
-
-
 
 
   .gbody{
@@ -197,13 +173,29 @@ color: rgba(0, 15, 66, 1);
     width: 612rem;
     height: 72rem;
     border-radius: 10rem;
-    background: rgba(255, 255, 255, 1);
+
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s;
-    cursor: pointer;
+
   }
+
+  .right_color{
+    background-color: rgba(69, 181, 86, 1); /* 绿色背景 */
+
+
+  }
+
+  .wrong_color{
+    background-color: rgba(196, 45, 45, 1); /* 绿色背景 */
+
+  }
+
+  .default_color{
+    background-color: rgba(255, 255, 255, 1); /* 绿色背景 */
+
+  }
+
 
   .op-box .content{
     font-size: 24rem;
@@ -212,13 +204,6 @@ color: rgba(0, 15, 66, 1);
   }
 
 
-  .op-box.hoverable:hover {
-  background-color: rgb(220, 234, 239); /* 鼠标悬停时的背景颜色 */
-}
-
-.op-box.clicked {
-  background-color: rgb(183, 207, 214); /* 点击后的背景颜色 */
-}
   .right .shift-box{
     height: 72rem;
     width: 612rem;
@@ -242,12 +227,10 @@ color: rgba(0, 15, 66, 1);
     font-weight: 400;
     color: rgb(255, 255, 255);
     transition: background-color 0.3s; 
-    cursor: pointer;
-
+    cursor:pointer;
   }
   .shift-box .shift-button:hover {
   background-color: rgba(49, 65, 110, 1); /* 加深的背景颜色 */
-}
-  
+  }
   </style>
   

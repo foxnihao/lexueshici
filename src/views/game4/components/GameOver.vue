@@ -8,7 +8,7 @@
       </div>
       <div class="over-btn">
         <img src="../imgs/btn_again.png"  @click="handle_btn_again">
-        <img src="../imgs/btn_lookup.png" alt="">
+        <img src="../imgs/btn_lookup.png" @click="handle_btn_lookup">
   
       </div>
     </div>
@@ -21,6 +21,11 @@
   const handle_btn_again=()=>{
     store.changeGameState(0)
   }
+  const handle_btn_lookup=()=>{
+    store.q_id=1;
+    store.changeGameState(3)
+  }
+
 
   
   
@@ -77,7 +82,7 @@
       width: 256rem;
       /* height: 145rem; */
       opacity: 1;
-  
+      cursor: pointer;
     }
   
   }
