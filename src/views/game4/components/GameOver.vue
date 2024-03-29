@@ -3,8 +3,8 @@
       <p class="over-message">{{ successMessage }}</p>
       <div class="over-img">
         <img src="@/assets/imgs/success.png" alt="">
-        <p>答对4题</p>
-        <p>正确率80%</p>
+        <p>答对{{store.num_right}}题</p>
+        <p>正确率{{perc}}%</p>
       </div>
       <div class="over-btn">
         <img src="../imgs/btn_again.png"  @click="handle_btn_again">
@@ -14,7 +14,7 @@
     </div>
   </template>
   <script setup lang="ts">
-  import { onMounted, ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import {useGameStore} from '../../../store/game4'
   const successMessage = ref("恭喜你完成答题！！")
   const store=useGameStore();
@@ -26,7 +26,7 @@
     store.changeGameState(3)
   }
 
-
+  const perc=computed(()=>Math.floor((store.num_right/store.q_num)*100))
   
   
   

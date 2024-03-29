@@ -78,7 +78,10 @@ import {useGameStore} from '../../../store/game4'
       if(store.q_id>max_q.value) {
         max_q.value=store.q_id;
         
-        if(store.ans_right[store.q_id-1]===choose.value) player1_score.value++;//对的就加分
+        if(store.ans_right[store.q_id-1]===choose.value) {
+          player1_score.value++;//对的就加分
+          store.num_right++;
+        }
         player2_score.value+=player2_buff[store.q_id-1]
       }
         store.ans_stack[store.q_id-1]=choose.value;
@@ -86,10 +89,10 @@ import {useGameStore} from '../../../store/game4'
 
         
           if(isLastQuestion.value) {
-            setTimeout(() => {
+            // setTimeout(() => {
     // 这里的代码会在1秒后执行
     store.changeGameState(2);
-  }, 1000);
+  // }, 1000);
 
             }
         choose.value=store.ans_stack[store.q_id];

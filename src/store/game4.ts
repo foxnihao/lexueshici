@@ -12,17 +12,21 @@ export const useGameStore = defineStore("Game4", () => {
   const changeGameState = (newstate: any) => {
     GameState.value = newstate;
   };
-
+  
   const ans_stack = ref<number[]>([]);
   
   const ans_right=ref([0,1,2]);
+
 
   const q_id=ref(-1);
 
   const init_Store=()=>{
     q_id.value=1;
     ans_stack.value.length=0;
+    num_right.value=0;
   }
+  const num_right=ref(0);
+  const q_num=ref(3);
 
-  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id,ans_right };
+  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id,ans_right,num_right,q_num};
 });
