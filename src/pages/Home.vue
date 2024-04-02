@@ -9,13 +9,16 @@
         
         <p class="p1"> &nbsp; &nbsp;诗词 &nbsp; 飞花令</p>
       </router-link>
-      <div class="ga-box2"><img src="../../src/assets/imgs/bg2.png" class="game2 ga" />
+      <router-link to="/fungrim" class="ga-box2">
+        <img src="../../src/assets/imgs/bg2.png" class="game2 ga" />
         <p class="p2">&nbsp;&nbsp;趣味&nbsp; 九宫格</p>
-      </div>
+      </router-link>
 
-      <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
+      <router-link to="/updown" >
+        <div class="ga-box3"><img src="../../src/assets/imgs/bg3.png" class="game3 ga" />
         <p class="p3">&nbsp;&nbsp;上下&nbsp; 对对碰</p>
       </div>
+      </router-link>
       <router-link to="/lookguess" class="ga-box4"><img src="../../src/assets/imgs/bg4.png" class="game4 ga" />
         <p class="p4">&nbsp;&nbsp;看图&nbsp; 猜诗词</p>
       </router-link>
@@ -26,6 +29,7 @@
 
 <script setup lang="ts">
 
+import router from '@/router';
 import Background from '../components/Background.vue';
 import FlyingWord from './FlyingWord.vue';
 // TypeScript脚本区域，如果你需要定义一些数据或方法，请在这里添加
