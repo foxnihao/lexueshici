@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { createEventHook } from '@vueuse/core';
 export const useGameStore = defineStore("Game2", () => {
   const beginState = ref("开始游玩");
   const GameState = ref(0);
@@ -17,27 +18,25 @@ export const useGameStore = defineStore("Game2", () => {
   
   const ans_right=ref([0,1,2]);
 
+  const next_qHook=createEventHook();
+  const q_id=ref(0);
 
-  const q_id=ref(-1);
-  const board=ref([
-    [null,null,null,null,null,null,null,'桃'],
-    [' ',null,null,'偷',null,null,null,' '],
-    [' ','南',' ',' ',' ',null,null,' '],
-    [' ',null,null,' ','毛',' ',' ','水'],
-    [' ',null,null,' ',null,null,null,' '],
-    ['浪',null,null,' ',null,null,null,' '],
-    [null,null,null,null,null,null,null,' ']
-  ]);
-  const board_t=ref(1);
+  const board=ref([[0,0,0,0,0,0,0,'桃',' ',0,0,'偷',0,0,0,' ',' ','南',' ',' ',' ',0,0,' ',' ',0,0,' ','毛',' ',' ','水',' ',0,0,' ',0,0,0,' ','浪',0,0,' ',0,0,0,' ',0,0,0,0,0,0,0,' '],
+                  [0,'满',0,0,0,0,0,0,0,' ',0,0,0,' ',0,0,0,' ',0,0,0,'听',0,0,0,'白',' ',' ','绿',' ',0,0,0,' ',0,'映' ,' ',' ',' ',' ',0,' ',0,0,0,' ',0,0,' ',' ',' ','雨',' ',0,0,0],
+                  [0,'满',0,0,0,0,0,0,0,' ',0,0,0,' ',0,0,0,' ',0,0,0,'听',0,0,0,'白',' ',' ','绿',' ',0,0,0,' ',0,'映' ,' ',' ',' ',' ',0,' ',0,0,0,' ',0,0,' ',' ',' ','雨',' ',0,0,0]]);
+  const boolBoard =board.value.map(row => 
+    row.map(item => item === ' ')
+  );
 
   const init_Store=()=>{
-    q_id.value=1;
-    // board_t.value=[0,0,0,0,0,0,0,'桃',' ',0,0,'偷',0,0,0,' ',' ','南',' ',' ',' ',0,0,' ',' ',0,0,' ','毛',' ',' ','水',' ',0,0,' ',0,0,0,' ','浪',0,0,' ',0,0,0,' ',0,0,0,0,0,0,0,' '];
+    q_id.value=0;
     ans_stack.value.length=0;
     num_right.value=0;
   }
   const num_right=ref(0);
-  const q_num=ref(3);
+  const q_num=ref(2);
 
-  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id,ans_right,num_right,q_num,board,board_t};
+  
+
+  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id,ans_right,num_right,q_num,board,next_qHook,boolBoard};
 });
