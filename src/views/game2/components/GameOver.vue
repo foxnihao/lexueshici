@@ -22,7 +22,7 @@
     store.changeGameState(0)
   }
   const handle_btn_lookup=()=>{
-    store.q_id=1;
+    store.q_id=0;
     store.changeGameState(3)
   }
 

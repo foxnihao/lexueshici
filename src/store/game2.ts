@@ -28,6 +28,11 @@ export const useGameStore = defineStore("Game2", () => {
     row.map(item => item === ' ')
   );
 
+  const ans=ref([[0,0,0,0,0,0,0,'桃','过',0,0,'偷',0,0,0,'花','江','南','可','采','莲',0,0,'潭','千',0,0,'白','毛','浮','绿','水','尺',0,0,'莲',0,0,0,'深','浪',0,0,'回',0,0,0,'千',0,0,0,0,0,0,0,'尺'],
+                [0,'满',0,0,0,0,0,0,0,'身',0,0,0,'近',0,0,0,'雪',0,0,0,'听',0,0,0,'白','毛','浮','绿','水',0,0,0,'走',0,'映','竹','无','人','见',0,'将',0,0,0,'声',0,0,'夜','来','风','雨','声',0,0,0],
+                [0,'满',0,0,0,0,0,0,0,'身',0,0,0,'近',0,0,0,'雪',0,0,0,'听',0,0,0,'白','毛','浮','绿','水',0,0,0,'走',0,'映','竹','无','人','见',0,'将',0,0,0,'声',0,0,'夜','来','风','雨','声',0,0,0]
+              ])
+
   const init_Store=()=>{
     q_id.value=0;
     ans_stack.value.length=0;
@@ -38,5 +43,5 @@ export const useGameStore = defineStore("Game2", () => {
 
   
 
-  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id,ans_right,num_right,q_num,board,next_qHook,boolBoard};
+  return { beginState, GameState, changeBeginState, changeGameState,ans_stack,init_Store,q_id,ans_right,num_right,q_num,board,next_qHook,boolBoard,ans};
 });

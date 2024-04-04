@@ -15,7 +15,7 @@ import TopTab_g from '@/components/TopTab_g.vue'
 import GameBegin from '@/views/game2/components/GameBegin.vue'
 import GameOver from '@/views/game2/components/GameOver.vue';
 import GamePlay from '@/views/game2/components/GamePlay.vue'
-import GameBack from '@/views/game4/components/GameBack.vue';
+import GameBack from '@/views/game2/components/GameBack.vue';
 import { useGameStore } from '@/store/game2.ts'
 import { markRaw, onMounted, ref, watch } from 'vue';
 const tabIndex = ref(0);
