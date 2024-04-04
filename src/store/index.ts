@@ -15,23 +15,26 @@ export const useStateStore = defineStore('state', () => {
     console.log(newstate)
     flywordState.value = newstate;
   }
+  const message = ref(["恭喜你获得胜利！！","10"])
+  
+  const changeMessage = (news)=>{
+    
+  }
+
+  const errPoetries = ref([])
 
   const changeUpdownState = (newstate:any)=>{
     console.log(newstate)
     updownState.value = newstate;
   }
-  return { beginState,flywordState,updownState,changeBeginState ,changeFlywordState,changeUpdownState}
+// 返回状态的切换，game代表是第几个游戏，state对应游戏当中的state,切换组件
+  const handleReturn = (state:number,game:number)=>{
+    if(game===1){
+      flywordState.value = state
+      console.log(flywordState)
+    }else{
+      updownState.value = state
+    }
+  }
+  return { beginState,flywordState,updownState,message,changeMessage,changeBeginState ,changeFlywordState,changeUpdownState,handleReturn }
 })
-
-
-// export const useStateStore = defineStore('state', () => {
-//   state: () => ({ count: 0 }),
-//   getters: {
-//     double: (state) => state.count * 2,
-//   },
-//   actions: {
-//     increment() {
-//       this.count++
-//     },
-//   },
-// })

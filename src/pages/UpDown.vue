@@ -2,7 +2,7 @@
   <div>
     <Background />
     <div class="updown">
-      <TopTab  :current-index="tabIndex" :font-color="`rgba(107, 0, 0, 1)`"
+      <NewTopTab  :current-index="tabIndex" :font-color="`rgba(107, 0, 0, 1)`"
       :imgl="`/views/updown/imgs/topbtnl.png`"  :imgr="`/views/updown/imgs/topbtnr.png`" />
         <div style="height: 30rem;"></div>
       <component :is="nowComponent"></component>
@@ -11,7 +11,7 @@
 </template>
 <script setup lang="ts">
 import Background from '@/components/Background.vue';
-import TopTab from '@/components/TopTab.vue'
+import NewTopTab from '@/components/NewTopTab.vue'
 import UDBegin from '@/views/updown/components/UDBegin.vue'
 import {useStateStore}  from '@/store/index.ts'
 import { markRaw, onMounted, ref, watch } from 'vue';

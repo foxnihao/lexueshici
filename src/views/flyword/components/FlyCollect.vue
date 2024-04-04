@@ -48,7 +48,7 @@ const value2 = ref(0)
 
 
 <style scoped>
-::v-deep .el-icon svg {
+:deep .el-icon svg {
   height: 3em;
   width: 3em;
 }

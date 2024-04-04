@@ -2,7 +2,7 @@
   <div>
     <Background />
     <div class="flyingword">
-      <TopTab :bg-color="'rgba(130, 65, 65, 1)'" :font-color="`rgba(77, 23, 0, 1)`"  :current-index="tabIndex" 
+      <NewTopTab   :bg-color="'rgba(130, 65, 65, 1)'" :font-color="`rgba(77, 23, 0, 1)`"  :current-index="tabIndex" 
       :imgl="`/views/flyword/imgs/topbtnl.png`"  :imgr="`/views/flyword/imgs/topbtnr.png`"  />
         <div style="height: 30rem;"></div>
       <component :is="nowComponent"></component>
@@ -11,7 +11,7 @@
 </template>
 <script setup lang="ts">
 import Background from '@/components/Background.vue';
-import TopTab from '@/components/TopTab.vue'
+import NewTopTab   from '@/components/NewTopTab.vue'
 import FlyBegin from '@/views/flyword/components/FlyBegin.vue'
 import FlyGameOver from '@/views/flyword/components/FlyGameOver.vue';
 import FlySelfGame from '@/views/flyword/components/FlySelfGame.vue';

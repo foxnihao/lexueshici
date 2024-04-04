@@ -25,7 +25,7 @@ const handleAgain = () => {
 }
 
 const handleCheck = () => {
-  store.changeUpdownState(3)
+  store.changeUpdownState(4)
 }
 
 </script>

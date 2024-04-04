@@ -1,11 +1,11 @@
 <template>
   <div class="game-box">
     <div class="top">
-      <p>出题中</p>
-      <p>5：15</p>
+      <p>{{ turnsText }}</p>
+      <p>{{ timer }}</p>
     </div>
     <div class="middle" ref="dialogContainer">
-      <div class="dialog" v-for="(dialog, index) in dialogs" :key="index" >
+      <div class="dialog" v-for="(dialog, index) in dialogs" :key="index">
         <div v-if="dialog.position === 'right'" class="right">
           <img src="../imgs/dialogr.png" class="dialogr" alt="">
           <img src="../imgs/ava1.png" class="avar" alt="">
@@ -21,39 +21,90 @@
           </div>
         </div>
       </div>
-      </div>
-      <div class="bottom">
-        <input type="text" placeholder="请在此输入诗句" v-model="inputValue">
-        <button @click="handleGetInput">按钮</button>
-      </div>
-
     </div>
+    <div class="bottom">
+      <input type="text" placeholder="请在此处作答" v-model="inputValue">
+      <div @click="handleGetInput" class="btn">按钮</div>
+    </div>
+
+  </div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-const inputValue = ref("鹅鹅鹅，曲项向天歌。")
+import { useStateStore } from '@/store/index.ts'
+const store = useStateStore();
+const inputValue = ref("清明时节雨纷纷，路上行人欲断魂。")
+const turnsText = ref("出题中")
+const poetries = ref([
+  { text: "山不在高，有仙则名。", position: "left", next: "水不在深，有龙则灵。", read: false },
+  { text: "明月几时有？把酒问青天。", position: "left", next: "不知天上宫阙，今夕是何年。", read: false },
+  { text: "白日依山尽，黄河入海流。", position: "left", next: "更上一层楼，欲穷千里目。", read: false },
+  { text: "日照香炉生紫烟，遥看瀑布挂前川。", position: "left", next: "飞流直下三千尺，疑是银河落九天。", read: false },
+  { text: "人生若只如初见，何事秋风悲画扇。", position: "left", next: "等闲变却故人心，却道故人心易变。", read: false },
+  { text: "清明时节雨纷纷，路上行人欲断魂。", position: 'left', next: '借问酒家何处有，牧童遥指杏花村。', read: true }
+]);
 const dialogs = ref([
-  {text:"鹅鹅鹅，曲项向天歌。",position:"right"},
+  { text: "鹅鹅鹅，曲项向天歌。", position: "right" },
   { text: "白毛浮绿水，红掌拨清波。", position: "left" },
-  { text: "床前明月光，疑是地上霜。", position: "left" }
 ]);
 const chatContainer = ref(null);
 const dialogContainer = ref(null);
-
-
-const handleGetInput = () => {
-  if(inputValue.value!=" "){
-  dialogs.value.push({ text: inputValue.value, position: "right" });
-  inputValue.value = " "
-  }
+// 生成一个介于min和max之间的随机整数
+const getPoetry = () => {
   
+  while(true){
+    const randomIndex = Math.floor(Math.random() * poetries.value.length);
+    if(!poetries.value[randomIndex].read){
+    return poetries.value[randomIndex];
+    }
+  }
 };
 
+const handleGetInput = () => {
+  if (inputValue.value.trim() !== "") {
+    dialogs.value.push({ text: inputValue.value, position: "right" });
+    turnsText.value = "请作答"
+    const nextp = poetries.value.filter(item => item.text === inputValue.value.trim());
+    inputValue.value = "";
+    setTimeout(() => {
+      console.log(poetries.value, nextp)
+      dialogs.value.push({ text: nextp[0].next, position: "left" });
+      turnsText.value = "出题中"
+    }, 3000); // 3秒后添加随机诗
+    setTimeout(() => {
+      turnsText.value = "到你啦"
+      // 获取随机诗句
+      const randomPoetry = getPoetry();
+      dialogs.value.push({ text: randomPoetry.text, position: "left" });
+    }, 5000)
+  }
+};
+
+const timer = ref(120); // 初始倒计时时间为3分钟
+// 定时器函数，倒计时结束后记录 inputValue 的次数
+const startTimer = () => {
+  const intervalId = setInterval(() => {
+    timer.value--;
+    const inputCount = dialogs.value.length;
+    if (timer.value === 0) {
+      clearInterval(intervalId); // 清除定时器
+      store.changeUpdownState(2)
+      console.log("输入次数：" + inputCount);
+    }
+    if (dialogs.value.length === 6) {
+      setTimeout(() => {
+        timer.value = 0
+        clearInterval(intervalId); // 清除定时器
+        store.changeUpdownState(2);
+      }, 5000)
+    }
+  }, 1000); // 每秒减少一秒
+};
 
 onMounted(() => {
-  // 滚动到底部
-  // scrollToBottom();
+  startTimer(); // 组件挂载时启动定时器
 });
+
 
 </script>
 
@@ -62,13 +113,17 @@ onMounted(() => {
 /* 隐藏垂直滚动条 */
 .chat-container {
   height: 200px;
-  overflow-y: scroll; /* 使用 scroll 来显示滚动条 */
-  scrollbar-width: none; /* 隐藏浏览器默认的滚动条 */
+  overflow-y: scroll;
+  /* 使用 scroll 来显示滚动条 */
+  scrollbar-width: none;
+  /* 隐藏浏览器默认的滚动条 */
 }
 
 .chat-container::-webkit-scrollbar {
-  display: none; /* 隐藏 WebKit 浏览器（如 Chrome 和 Safari）的滚动条 */
+  display: none;
+  /* 隐藏 WebKit 浏览器（如 Chrome 和 Safari）的滚动条 */
 }
+
 .game-box {
   width: 1261rem;
   height: 642rem;
@@ -203,8 +258,6 @@ onMounted(() => {
 }
 
 
-
-
 .bottom {
   position: absolute;
   top: 570rem;
@@ -214,16 +267,26 @@ onMounted(() => {
 }
 
 .bottom input {
-
-  width: 1191rem;
+  width: 1080rem;
   height: 49rem;
-
   border-radius: 10rem;
   background: rgba(255, 255, 255, 1);
-
   border: none;
   outline: none;
   padding-left: 13rem;
+}
 
+.bottom .btn {
+  width: 89rem;
+  height: 49rem;
+  margin-left: 17rem;
+  border-radius: 10rem;
+  background: rgba(156, 82, 82, 1);
+
+  font-size: 24rem;
+  font-weight: 400;
+  letter-spacing: 0rem;
+  line-height: 49rem;
+  color: rgba(255, 255, 255, 1);
 }
 </style>

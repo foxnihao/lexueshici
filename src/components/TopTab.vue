@@ -1,69 +1,55 @@
 <template>
   <div class="tabbox">
-    <div v-if="currentIndex === 0" >
-      <img :src="imgl"  class="btnimg" alt="" @click="handleLeftClick1">
+
+      <router-link to="/" class="back">
+          <div class="back-imgbox">
+              <img :src="imgb" class="back-img">
+          </div>
+          <p class="p_b" :style="{color:props.fontColor}">返回</p>
+      </router-link>
+    <div v-if="props.currentIndex === 0" class="btnimg_box" >
+      <img :src="imgl"  class="btnimg" alt="" @click="props.handleLeftClick1">
     </div>
 
-    <div class="btn" v-if="currentIndex === 1" @click="handleLeftClick2"  :style="{ color: props.fontColor }">
+    <div class="btn" v-if="props.currentIndex === 1" @click="props.handleLeftClick2"  :style="{ color: props.fontColor }">
       {{ leftContent }}
     </div>
-    <div v-if="currentIndex === 1" >
-      <img :src="imgr"  class="btnimg" alt="" @click="handleRightClick2" >
+    <div v-if="props.currentIndex === 1" class="btnimg_box">
+      <img :src="imgr"  class="btnimg" alt="" @click="props.handleRightClick2" >
     </div>
-    <div class="btn" v-if="currentIndex === 0" @click="handleRightClick1"  :style="{ color: props.fontColor }">
+    <div class="btn" v-if="props.currentIndex === 0" @click="props.handleRightClick1"  :style="{ color: props.fontColor }">
       {{ rightContent }}
     </div>
+
+    <div class="guize_box" :style="{backgroundColor:props.color,color:props.fontColor}">游戏规则</div> 
+
 
   </div>
 </template>
 
 <script setup lang="ts">
+import router from '@/router';
 import { onMounted, ref, watch, defineProps, defineEmits } from 'vue';
-import { useStateStore } from '@/store/index.ts'
+
 const emits = defineEmits(['update:currentIndex']); // 定义需要向父组件发送的自定义事件
-const props = defineProps(['imgl','imgr','fontColor']);
+const props = defineProps(['imgl','imgr','imgb','color','fontColor','currentIndex','handleLeftClick1','handleLeftClick2','handleRightClick2','handleRightClick1']);
 const currentIndex = ref(0);
 const imgl = ref();
 const imgr = ref();
+const imgb=ref();
 const leftContent = "自主游玩"
 const rightContent = "匹配游玩"
 const fontColor = props.fontColor
-const store = useStateStore();
+
 
 
 onMounted(()=>{
   imgl.value = `../src${props.imgl}`
   imgr.value = `../src${props.imgr}`
+  imgb.value = `../src${props.imgb}`
   console.log("top",props)
   console.log(import.meta.url)
 })
-
-const handleLeftClick1 = () => {
-  currentIndex.value = 0; // 切换为左边
-  store.changeBeginState("开始游玩")
-  store.changeFlywordState(0)
-  store.changeUpdownState(0)
-};
-
-const handleLeftClick2 = () => {
-  currentIndex.value = 0; // 切换为左边
-  store.changeBeginState("开始游玩")
-  store.changeFlywordState(0)
-  store.changeUpdownState(0)
-};
-
-const handleRightClick1 = () => {
-  currentIndex.value = 1; // 切换为右边
-  store.changeBeginState("开始匹配")
-  store.changeFlywordState(0)
-  store.changeUpdownState(0)
-};
-const handleRightClick2 = () => {
-  currentIndex.value = 1; // 切换为右边
-  store.changeBeginState("开始匹配")
-  store.changeFlywordState(0)
-  store.changeUpdownState(0)
-};
 
 
 
@@ -71,46 +57,57 @@ const handleRightClick2 = () => {
 
 <style scoped>
 .tabbox {
-  width: 598rem;
+  width: 100%; /* 使元素宽度等于其父元素宽度 */
+box-sizing: border-box; /* 确保padding和border不会使元素宽度增加 */
+margin: 0; /* 移除外边距 */
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 50rem;
 }
+.back{
+  text-decoration: none;
+  position: absolute;
+  left: 37rem;
+  display: flex;
+  flex-direction: row;
 
-.active {
-  border: 3rem solid rgba(236, 196, 135, 1);
-  border-radius: 21rem;
-  position: relative;
-  width: 280rem;
-  height: 93rem;
-
-  .imgleft {
-    position: absolute;
-    left: -70rem;
-    bottom: -38rem;
-    z-index: 99;
-  }
-
-  .imgright {
-    position: absolute;
-    left: 169rem;
-    bottom: -17rem;
-    z-index: 99;
-  }
-
+  width: 140rem;
+  height: 68rem;
+}
+.back-imgbox{
+  width: 68rem;
+  height: 68rem;
+}
+.back-img{
+  max-width: 50rem;
+  max-height: 50rem;
+}
+.p_b{
+  width: 72rem;
+  font-size: 36rem;
+font-weight: 400;
 }
 
 
-.btnimg{
+.btnimg_box{
+
   width:300rem;
+
+
+}
+.btnimg{
+  width: 300rem;
+  height: 150rem;
+  position: relative;
+  bottom: 8rem;
 }
 
 
 .btn {
-  width: 276.86rem;
+  width: 300rem;
   /* height: 83.39rem; */
-  flex: 1;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,5 +115,20 @@ const handleRightClick2 = () => {
   font-weight: 400;
   line-height: 52.13rem;
   cursor: pointer;
+}
+
+.guize_box{
+  width: 130rem;
+  height: 63rem;
+  border-radius: 10rem;
+
+  position: absolute;
+  left: 1732rem;
+
+  font-size: 24rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
