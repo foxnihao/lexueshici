@@ -13,6 +13,7 @@
   const btn_content = ref('开始游玩')
   watch(() => store.beginState, (newValue) => {
   btn_content.value = newValue;
+  console.log(store.beginState)
 });
   
   const handleEnterPersonGame = ()=>{
@@ -22,10 +23,12 @@
       store.changeGameState(1);
     store.init_Store();
   }, 2000);
-    }
-
+    }else{
       store.changeGameState(1);
     store.init_Store();
+    }
+
+      
 
     
   }

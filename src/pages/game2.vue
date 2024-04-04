@@ -2,16 +2,16 @@
     <div>
         <Background />
         <div class="flyingword">
-            <TopTab_g :bg-color="'rgba(96, 144, 108, 1)'" :font-color="'white'" :currentIndex="currentIndex" :handle-left-click1="handleLeftClick1" :handle-left-click2="handleLeftClick2" :handle-right-click1="handleRightClick1" :handle-right-click2="handleRightClick2"
-                @update:currentIndex="handleCurrentIndexUpdate" />
-            <div style="height: 30rem;"></div>
+            <TopTab_t :color="'rgba(190, 232, 199, 1)'" :imgb="'/views/game2/imgs/back.png'" :imgl="`/views/game2/imgs/topbtn_l.png`" :imgr="`/views/game2/imgs/topbtn_r.png`" :font-color="'rgba(0, 66, 14, 1)'" :currentIndex="currentIndex" :handle-left-click1="handleLeftClick1" :handle-left-click2="handleLeftClick2" :handle-right-click1="handleRightClick1" :handle-right-click2="handleRightClick2"
+ />
+   
             <component :is="nowComponent"></component>
         </div>
     </div>
 </template>
 <script setup lang="ts">
 import Background from '@/components/Background.vue';
-import TopTab_g from '@/components/TopTab_g.vue'
+import TopTab_t from '@/components/TopTab_t.vue'
 import GameBegin from '@/views/game2/components/GameBegin.vue'
 import GameOver from '@/views/game2/components/GameOver.vue';
 import GamePlay from '@/views/game2/components/GamePlay.vue'

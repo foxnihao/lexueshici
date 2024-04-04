@@ -18,7 +18,7 @@
         </div>
 
         <div class="right">
-            <div v-for="(option,index) in options" :key="index" class="op-box"  :class="color_class(index)">
+            <div v-for="(option,index) in options[store.q_id-1]" :key="index" class="op-box"  :class="color_class(index)">
                 <div class="content">{{ option }}</div>
             </div>
 
@@ -36,7 +36,9 @@
 import { computed, ref } from 'vue';
 import {useGameStore} from '../../../store/game4'
   
-    const options=["A. 白毛浮绿水，红掌拨清波","B. 床前明月光，疑是地上霜","C. 牧童骑黄牛，歌声振林樾","D. 举头望明月，低头思故乡"]
+const options=[["A.爆竹声中一岁除，春风送暖入屠苏","B.蓬头稚子学垂纶，侧坐莓苔草映身","C.儿童急走追黄蝶，飞入菜花无处寻","D.知有儿童挑促织，夜深篱落一灯明"],
+                  ["A.桃花潭水深千尺，不及汪伦送我情","B.春潮带雨晚来急，野渡无人舟自横","C.沉舟侧畔千帆过，病树前头万木春","D.两岸青山相对出，孤帆一片日边来"],
+                  ["A.相看两不厌，只有敬亭山","B.天子呼来不上船，自称臣是酒中仙","C.天生我材必有用，千金散尽还复来","D.不识庐山真面目，只缘身在此山中"]]
 
     const store=useGameStore();
 
@@ -56,7 +58,7 @@ import {useGameStore} from '../../../store/game4'
 
     const currentNumber = computed(() => numbers[store.q_id - 1]);
     const currentImageURL = computed(() => images[store.q_id - 1]);
-    const currentImage=new URL(currentImageURL.value,import.meta.url).href;
+    const currentImage=computed(()=>new URL(currentImageURL.value,import.meta.url).href);
     const total_questions=ref(3);
     const isLastQuestion = computed(() => store.q_id === total_questions.value);
     const isRight=computed(()=>{
@@ -119,7 +121,7 @@ const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
     p {
       font-size: 24rem;
       font-weight: 400;
-      color: rgba(77, 23, 0, 1);
+      color: rgba(0, 15, 66, 1);
       text-align: center;
     }
   
@@ -157,8 +159,9 @@ const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
     width: 563rem;
 
     .pic{
-        max-width: 100%;
-        max-height: 100%;
+      border-radius: 10rem;
+        width: 100%;
+        height: 100%;
     }
   }
 

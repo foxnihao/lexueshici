@@ -12,7 +12,7 @@
           <p>{{ player2_score }}</p>
         </div>
         
-        <p class="p2">15</p>
+        <timer class="p2" :font_color="'rgba(0, 66, 14, 1)'" @timeout="handleTimeout"></timer>
 
       </div>
       <div class="gbody">
@@ -33,6 +33,7 @@
 import { computed, onMounted, ref } from 'vue';
 import {useGameStore} from '../../../store/game2'
 import Tile from './Tile.vue'
+import timer from '@/components/Timer.vue'
 
 
   
@@ -72,16 +73,19 @@ import Tile from './Tile.vue'
      const {trigger}=store.next_qHook;
 
     const max_q=ref(0);
+
+    const handleTimeout=()=>{
+      console.log("计时结束");
+      store.changeGameState(2);
+    }
+
     const next_q=()=>{
-  //     if(store.q_id>max_q.value) {
-  //       max_q.value=store.q_id;
+      if(store.q_id>=max_q.value) {
+        max_q.value=store.q_id;
         
-  //       if(store.ans_right[store.q_id-1]===choose.value) {
-  //         player1_score.value++;//对的就加分
-  //         store.num_right++;
-  //       }
-  //       player2_score.value+=player2_buff[store.q_id-1]
-  //     }
+        player1_score.value++;
+        player2_score.value+=player2_buff[store.q_id]
+      }
   //       store.ans_stack[store.q_id-1]=choose.value;
         
 
@@ -97,18 +101,17 @@ import Tile from './Tile.vue'
         trigger("next");
         store.q_id++;
 
-        console.log(store.q_id)
-        console.log(board.value)
-        console.log(store.board[0])
+
 
         
     }
     const last_q=()=>{
-        // if(store.ans_stack.length===0) return null;
+        if(store.q_id===0) return null;
         store.q_id--;
         // choose.value=store.ans_stack[store.q_id-1];
 
     }
+
 
   </script>
   

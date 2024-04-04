@@ -2,16 +2,16 @@
     <div>
         <Background />
         <div class="flyingword">
-            <TopTab_g :bg-color="'rgba(69, 85, 130, 1)'" :font-color="'white'" :currentIndex="currentIndex" :handle-left-click1="handleLeftClick1" :handle-left-click2="handleLeftClick2" :handle-right-click1="handleRightClick1" :handle-right-click2="handleRightClick2"
-                @update:currentIndex="handleCurrentIndexUpdate" />
-            <div style="height: 30rem;"></div>
+            <TopTab_t :color="'rgba(193, 202, 232, 1)'" :imgb="'/views/game4/imgs/back.png'" :imgl="`/views/game4/imgs/topbtn_l.png`" :imgr="`/views/game4/imgs/topbtn_r.png`" :font-color="'rgba(0, 15, 66, 1)'" :currentIndex="currentIndex" :handle-left-click1="handleLeftClick1" :handle-left-click2="handleLeftClick2" :handle-right-click1="handleRightClick1" :handle-right-click2="handleRightClick2"
+ />
+
             <component :is="nowComponent"></component>
         </div>
     </div>
 </template>
 <script setup lang="ts">
 import Background from '@/components/Background.vue';
-import TopTab_g from '@/components/TopTab_g.vue'
+import TopTab_t from '@/components/TopTab_t.vue'
 import GameBegin from '@/views/game4/components/GameBegin.vue'
 import GameOver from '@/views/game4/components/GameOver.vue';
 import GamePlay from '@/views/game4/components/GamePlay.vue'
@@ -45,15 +45,7 @@ watch(() => store.GameState, (newstate) => {
     }
 })
 
-const handleCurrentIndexUpdate = (newIndex: number) => {
-    console.log("变化", newIndex)
 
-    if (newIndex === 0) {
-        btnContent.value = "开始游玩"
-    } else {
-        btnContent.value = "开始匹配"
-    }
-}
 const emits = defineEmits(['update:currentIndex']); // 定义需要向父组件发送的自定义事件
 const currentIndex = ref(0);
 watch(currentIndex, (newVal) => {
@@ -77,6 +69,7 @@ const handleLeftClick1 = () => {
   };
   const handleRightClick2 = () => {
     currentIndex.value = 1; // 切换为右边
+    store.changeBeginState("开始匹配")
   };
 </script>
 

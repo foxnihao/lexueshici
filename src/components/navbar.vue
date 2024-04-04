@@ -33,10 +33,12 @@ padding: 0 20px; /* 按需调整内边距 */
 }
 
 .navbar-brand{
-
-
-  height: 36rem;
-  left:20rem;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  height: 50rem;
+  width: 152rem;
+  left:25rem;
   cursor: pointer;
 }
 .navbar-end{

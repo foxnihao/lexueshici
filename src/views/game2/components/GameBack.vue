@@ -1,18 +1,15 @@
 <template>
     <div class="game-box">
       <div class="top">
-        <div v-if="isDuelGame" class="player_box">
-          <p>{{ player1_score }}</p>
-          <img src="../imgs/player1.png" class="player_pic">
-        </div>
         <p class="p1">第{{currentNumber}}题 </p>
-        <div v-if="isDuelGame" class="player_box">
-          
-          <img src="../imgs/player2.png" class="player_pic">
-          <p>{{ player2_score }}</p>
-        </div>
+       
         
-        <p class="p2">15</p>
+        <img
+      :src="isFavorited ? starImg : starNImg"
+      @click="toggleFavorite"
+      alt="favorite"
+      class="star"
+    />
 
       </div>
       <div class="gbody">
@@ -48,15 +45,19 @@ import Tile_back from './Tile_back.vue';
       if(index===choose.value) return true
       else return false
     }
-    const player1_score=ref(0);
-    const player2_score=ref(0);
+
     const numbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
-    const player2_buff=[0,1,0,0,1,1,0,0,1,0];
     const currentNumber = computed(() => numbers[store.q_id]);
 
     const board=computed(()=>store.board[store.q_id])
 
+    const isFavorited = ref(false);
+    const toggleFavorite = () => {
+      isFavorited.value = !isFavorited.value;
+    };
+    const starImg = new URL('../imgs/star.png', import.meta.url).href;
+const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
     //board
 
 
@@ -89,7 +90,7 @@ import Tile_back from './Tile_back.vue';
           if(isLastQuestion.value) {
   //           // setTimeout(() => {
   //   // 这里的代码会在1秒后执行
-    store.changeGameState(2);
+    store.changeGameState(0);
   // // }, 1000);
 
             }
@@ -237,6 +238,12 @@ color: rgba(0, 15, 66, 1);
   .shift-box .shift-button:hover {
   background-color: rgb(85, 132, 97); /* 加深的背景颜色 */
 }
-  
+.star{
+    position:absolute;
+    cursor:pointer;
+    right:25.5rem;
+    max-height:42.75rem;
+    max-width:45rem;
+  }
   </style>
   

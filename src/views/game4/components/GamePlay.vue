@@ -12,7 +12,7 @@
           <p>{{ player2_score }}</p>
         </div>
         
-        <p class="p2">15</p>
+        <timer class="p2" :font_color="'rgba(0, 15, 66, 1)'" @timeout="handleTimeout"></timer>
 
       </div>
       <div class="gbody">
@@ -22,7 +22,7 @@
         </div>
 
         <div class="right">
-            <div v-for="(option,index) in options" :key="index" class="op-box" @click="handleClick(index)" :class="{ 'clicked': ischoosed(index), 'hoverable': !ischoosed(index) }">
+            <div v-for="(option,index) in options[store.q_id-1]" :key="index" class="op-box" @click="handleClick(index)" :class="{ 'clicked': ischoosed(index), 'hoverable': !ischoosed(index) }">
             <div class="content">{{ option }}</div>
             </div>
 
@@ -39,8 +39,8 @@
   <script setup lang="ts">
 import { computed, ref } from 'vue';
 import {useGameStore} from '../../../store/game4'
-  
-    const options=["A. 白毛浮绿水，红掌拨清波","B. 床前明月光，疑是地上霜","C. 牧童骑黄牛，歌声振林樾","D. 举头望明月，低头思故乡"]
+import timer from '@/components/Timer.vue'
+    
     const choose=ref(-1);
     const store=useGameStore();
     const handleClick=(index: number)=>{
@@ -68,10 +68,13 @@ import {useGameStore} from '../../../store/game4'
   '../imgs/pic1.png',
   '../imgs/pic1.png',
 ];
+const options=[["A.爆竹声中一岁除，春风送暖入屠苏","B.蓬头稚子学垂纶，侧坐莓苔草映身","C.儿童急走追黄蝶，飞入菜花无处寻","D.知有儿童挑促织，夜深篱落一灯明"],
+                  ["A.桃花潭水深千尺，不及汪伦送我情","B.春潮带雨晚来急，野渡无人舟自横","C.沉舟侧畔千帆过，病树前头万木春","D.两岸青山相对出，孤帆一片日边来"],
+                  ["A.相看两不厌，只有敬亭山","B.天子呼来不上船，自称臣是酒中仙","C.天生我材必有用，千金散尽还复来","D.不识庐山真面目，只缘身在此山中"]]
     const player2_buff=[0,1,0,0,1,1,0,0,1,0];
     const currentNumber = computed(() => numbers[store.q_id - 1]);
     const currentImageURL = computed(() => images[store.q_id - 1]);
-    const currentImage=new URL(currentImageURL.value,import.meta.url).href;
+    const currentImage=computed(()=>new URL(currentImageURL.value,import.meta.url).href);
 
     const max_q=ref(0);
     const next_q=()=>{
@@ -85,7 +88,7 @@ import {useGameStore} from '../../../store/game4'
         player2_score.value+=player2_buff[store.q_id-1]
       }
         store.ans_stack[store.q_id-1]=choose.value;
-        
+        console.log(currentImageURL.value);
 
         
           if(isLastQuestion.value) {
@@ -101,10 +104,15 @@ import {useGameStore} from '../../../store/game4'
         
     }
     const last_q=()=>{
-        if(store.ans_stack.length===0) return null;
+        if(store.ans_stack.length===0||store.q_id===1) return null;
         store.q_id--;
         choose.value=store.ans_stack[store.q_id-1];
         
+    }
+
+    const handleTimeout=()=>{
+      console.log("计时结束");
+      store.changeGameState(2);
     }
   </script>
   
@@ -132,7 +140,7 @@ import {useGameStore} from '../../../store/game4'
     p {
       font-size: 24rem;
       font-weight: 400;
-      color: rgba(77, 23, 0, 1);
+      color: rgba(0, 15, 66, 1);
       text-align: center;
     }
   
@@ -182,10 +190,12 @@ color: rgba(0, 15, 66, 1);
   .gbody .left{
     height:486rem;
     width: 563rem;
+    border-radius: 10rem;
 
     .pic{
-        max-width: 100%;
-        max-height: 100%;
+      border-radius: 10rem;
+        width: 100%;
+        height: 100%;
     }
   }
 
