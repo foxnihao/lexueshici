@@ -17,11 +17,9 @@ export const useStateStore = defineStore('state', () => {
   }
   const message = ref(["恭喜你获得胜利！！","10"])
   
-  const changeMessage = (news)=>{
+  const changeMessage = (news: any)=>{
     
   }
-
-  const errPoetries = ref([])
 
   const changeUpdownState = (newstate:any)=>{
     console.log(newstate)
@@ -36,5 +34,33 @@ export const useStateStore = defineStore('state', () => {
       updownState.value = state
     }
   }
-  return { beginState,flywordState,updownState,message,changeMessage,changeBeginState ,changeFlywordState,changeUpdownState,handleReturn }
+
+
+  const truePoetries1 =0
+  const truePoetries2 = 0
+  const truePoetries3 = 0
+  const truePoetries4 =0
+  const allNums = 0
+
+  const checkoutIsTrue = (poetry:string,myanswer: string)=>{
+    return poetry===myanswer.trim()
+  }
+  
+  const poetries =[
+    { givened: '鹅鹅鹅，曲项向天歌', myanswer: '白毛浮绿水，红掌拨清波', trueanswer: '白毛浮绿水，红掌拨清波' },
+    { givened: '床前明月光，疑是地上霜', myanswer: '举头望明月，低头想人生', trueanswer: '举头望明月，低头思故乡' }
+  ]
+
+  const addErr = (givened: any,myanswer: any,trueanswer: any)=>{
+    console.log("失败")
+    poetries.push({
+      givened:givened,
+      myanswer:myanswer,
+      trueanswer:trueanswer
+
+    })
+  }
+
+  return { beginState,flywordState,updownState,message,changeMessage,changeBeginState ,changeFlywordState,changeUpdownState,handleReturn,
+    checkoutIsTrue, addErr ,truePoetries1,truePoetries2,truePoetries3,truePoetries4,allNums,poetries}
 })
