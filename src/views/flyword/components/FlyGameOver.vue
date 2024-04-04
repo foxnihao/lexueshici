@@ -4,7 +4,7 @@
     <div class="over-img">
       <img src="@/assets/imgs/success.png" alt="">
       <p>共答出</p>
-      <p>10句诗词</p>
+      <p>{{store.truePoetries3}}句诗词</p>
     </div>
     <div class="over-btn">
       <img src="../imgs/btnleft.png" alt="" @click="handleAgain">

@@ -20,15 +20,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 const isCollected = ref(0)
-const poetries = ref([
-  { givened: '鹅鹅鹅，曲项向天歌', myanswer: '白毛浮绿水，红掌拨清波', trueanswer: '白毛浮绿水，红掌拨清波' },
-  { givened: '床前明月光，疑是地上霜', myanswer: '举头望明月，低头想人生', trueanswer: '举头望明月，低头思故乡' }
-])
-const orders = ref(["一","二"])
+import { useStateStore } from '@/store/index.ts'
+const store = useStateStore();
+const poetries = store.poetries
+onMounted(()=>{
+  // poetries.value = store.poetries
+  console.log(store.poetries)
+})
+const orders = ref(["一","二","三","四","五","六","七"])
 const poIndex = ref(0)
 const handleNext = () => {
   console.log("kkk")
-  if(poIndex.value<poetries.value.length){
+  if(poIndex.value<poetries.length){
     poIndex.value++;
   }
 }

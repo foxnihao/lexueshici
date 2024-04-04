@@ -1,10 +1,11 @@
 <template>
   <div class="gameover-box">
-    <p class="over-message">{{ successMessage }}</p>
+    <p class="over-message">{{ store.truePoetries3/store.allNums*100 > 60 ? successMessage : '很遗憾比拼失败！！' }}
+</p>
     <div class="over-img">
       <img src="@/assets/imgs/success.png" alt="">
-      <p>答对4题</p>
-      <p>正确率80%</p>
+      <p>答对{{store.truePoetries3}}题</p>
+      <p>正确率{{ Number((store.truePoetries3/store.allNums*100).toFixed(0))+"%" }}</p>
     </div>
     <div class="over-btn">
       <img src="../imgs/btnleft.png" alt="" @click="handleAgain">
@@ -18,9 +19,12 @@
 import { onMounted, ref } from 'vue';
 import { useStateStore } from '@/store';
 const store = useStateStore()
+onMounted(()=>{
+  console.log("sff")
+  console.log(store.allNums,store.truePoetries3,store.poetries)
+})
 const successMessage = ref("恭喜你获得胜利！！")
 const handleAgain = () => {
-  console.log("点击")
   store.changeUpdownState(0)
 }
 

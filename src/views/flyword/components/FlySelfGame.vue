@@ -7,8 +7,8 @@
       <p>{{ timer }}</p> <!-- 将倒计时显示在页面上 -->
     </div>
     <div class="middle">
-      <div class="dialog" v-for="(dialog, index) in dialogs" :key="index" >
-        <div  v-if="dialog.position === 'right'" class="right">
+      <div class="dialog" v-for="(dialog, index) in dialogs" :key="index">
+        <div v-if="dialog.position === 'right'" class="right">
           <img src="../imgs/dialogr.png" class="dialogr" alt="">
           <img src="../imgs/ava1.png" class="avar" alt="">
           <div class="contentr">
@@ -16,7 +16,7 @@
             <p class="down">{{ dialog.origin }}</p>
           </div>
         </div>
-        <div v-else-if="dialog.position === 'left'"  class="left">
+        <div v-else-if="dialog.position === 'left'" class="left">
           <img src="../imgs/ava2.png" class="aval" alt="">
           <img src="../imgs/dialogl.png" class="dialogl" alt="">
           <div class="contentl">
@@ -36,36 +36,38 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
-const inputValue = ref("");
+const inputValue = ref("花间一壶酒，独酌无相亲。 --李白《月下独酌》");
 const turnsText = ref("到你啦！")
 import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
 const dialogs = ref([
-{text:'花间一壶酒，独酌无相亲。' ,origin:'--李白《月下独酌》',position:'right' },
-{ text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
+  { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
+  { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);
 
-const poetries = [
-  { text: "当窗理云鬓，对镜贴花黄。", origin: "--《木兰辞》", position: 'left' },
-  { text: "采莲南塘秋，莲花过人头。", origin: "--《西洲曲》", position: 'left' },
-  { text: "人归落雁后，思发在花前。", origin: "--薛道衡《人日思归》", position: 'left' },
-  { text: "暮江平不动，春花满正开。", origin: "--杨广《春江花月夜》", position: 'left' },
-  { text: "花须连夜发，莫待晓风吹。", origin: "--武则天《催花诗》", position: 'left' },
-  { text: "他乡共酌金花酒，万里同悲鸿雁天。", origin: "--卢照邻《九月九日玄武山旅眺》", position: 'left' },
-  { text: "解落三秋叶，能开二月花。", origin: "--李峤《风》", position: 'left' },
-  { text: "江流宛转绕芳甸，月照花林皆似霰。", origin: "--张若虚《春江花月夜》", position: 'left' },
-  { text: "昨夜闲潭梦落花，可怜春半不还家。", origin: "--张若虚《春江花月夜》", position: 'left' },
-  { text: "火树银花合，星桥铁锁开。", origin: "--苏味道《正月十五夜》", position: 'left' },
-];
+const poetries = ref([
+  { text: "当窗理云鬓，对镜贴花黄。", origin: "--《木兰辞》", position: 'left', read: false },
+  { text: "采莲南塘秋，莲花过人头。", origin: "--《西洲曲》", position: 'left', read: false },
+  { text: "人归落雁后，思发在花前。", origin: "--薛道衡《人日思归》", position: 'left', read: false },
+  { text: "暮江平不动，春花满正开。", origin: "--杨广《春江花月夜》", position: 'left', read: false },
+  { text: "花须连夜发，莫待晓风吹。", origin: "--武则天《催花诗》", position: 'left', read: false },
+  { text: "他乡共酌金花酒，万里同悲鸿雁天。", origin: "--卢照邻《九月九日玄武山旅眺》", position: 'left', read: false },
+  { text: "解落三秋叶，能开二月花。", origin: "--李峤《风》", position: 'left', read: false },
+  { text: "江流宛转绕芳甸，月照花林皆似霰。", origin: "--张若虚《春江花月夜》", position: 'left', read: false },
+  { text: "昨夜闲潭梦落花，可怜春半不还家。", origin: "--张若虚《春江花月夜》", position: 'left', read: false },
+  { text: "火树银花合，星桥铁锁开。", origin: "--苏味道《正月十五夜》", position: 'left', read: false },
+]);
 
 
 
-const handleGetInput = () => {
+const handleGetInput = async () => {
+  store.truePoetries3 += 1
+  store.allNums += 1
   if (inputValue.value.trim() !== "") {
     const inputParts = inputValue.value.split(" ");
     const text = inputParts[0];
     const origin = inputParts.slice(1).join(" ");
-    
+
     dialogs.value.push({ text, origin, position: "right" });
     inputValue.value = "";
     turnsText.value = "请等待..."
@@ -74,18 +76,24 @@ const handleGetInput = () => {
       dialogs.value.push(randomPoetry);
       turnsText.value = "到你啦 ！"
     }, 3000); // 3秒后添加随机诗句
-    console.log(poetries)
+    await new Promise(resolve => setTimeout(resolve, 5000)); // 等待3秒
+    inputValue.value = getPoetry().text +getPoetry().origin
   }
 };
 
 const getPoetry = () => {
-  const randomIndex = Math.floor(Math.random() * poetries.length);
-  return poetries[randomIndex];
+  while (true) {
+    const randomIndex = Math.floor(Math.random() * poetries.value.length);
+    if (!poetries.value[randomIndex].read) {
+      poetries.value[randomIndex].read = true
+      return poetries.value[randomIndex];
+    }
+  }
 };
 const timer = ref(180); // 初始倒计时时间为3分钟
 // 定时器函数，倒计时结束后记录 inputValue 的次数
 const startTimer = () => {
-  const intervalId = setInterval(() => {
+  const intervalId = setInterval(async () => {
     timer.value--;
     const inputCount = dialogs.value.length;
     if (timer.value === 0) {
@@ -93,15 +101,20 @@ const startTimer = () => {
       store.changeFlywordState(2)
       console.log("输入次数：" + inputCount);
     }
-    if(dialogs.value.length===10){
-      clearInterval(intervalId); // 清除定时器
-      store.changeFlywordState(2)
+    if (dialogs.value.length === 6) {
+      setTimeout(() => {
+        timer.value = 0
+        clearInterval(intervalId); // 清除定时器
+        store.changeFlywordState(2)
+      }, 3000)
     }
   }, 1000); // 每秒减少一秒
 };
 
 onMounted(() => {
   startTimer(); // 组件挂载时启动定时器
+  store.truePoetries3 = 0
+  store.allNums = 0
 });
 
 
@@ -259,6 +272,7 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
 }
+
 .bottom input {
 
   width: 1080rem;
@@ -273,18 +287,18 @@ onMounted(() => {
 
 }
 
-.bottom .btn{
-width: 89rem;
-height: 49rem;
-margin-left: 17rem;
-border-radius: 10rem;
-background: rgba(158, 106, 83, 1);
+.bottom .btn {
+  width: 89rem;
+  height: 49rem;
+  margin-left: 17rem;
+  border-radius: 10rem;
+  background: rgba(158, 106, 83, 1);
 
-font-size: 24rem;
-font-weight: 400;
-letter-spacing: 0rem;
-line-height: 49rem;
-color: rgba(255, 255, 255, 1);
+  font-size: 24rem;
+  font-weight: 400;
+  letter-spacing: 0rem;
+  line-height: 49rem;
+  color: rgba(255, 255, 255, 1);
 
 }
 </style>
