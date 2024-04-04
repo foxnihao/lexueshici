@@ -1,65 +1,120 @@
 <template>
   <div class="game-box">
     <div class="top">
-      <p>2</p>
+      <p>{{ leftScore }}</p>
       <img src="../imgs/ava2.png" alt="">
       <p class="p1">本文抽到的字为 </p>
       <img src="../imgs/font.png" alt="">
       
       <img src="../imgs/ava1.png" class="aval" alt="">
-      <p>3</p>
-      <p class="p2">到你啦！</p>
-      <p style="margin-right: 22rem;">15</p>
+      <p>{{ rightScore }}</p>
+      <p class="p2">{{ turnsText}}</p>
+      <p style="margin-right: 22rem;">{{ timer }}</p>
     </div>
     <div class="middle">
-      <div class="dialog">
-        <div class="right">
+      <div class="dialog" v-for="(dialog, index) in dialogs" :key="index" >
+        <div  v-if="dialog.position === 'right'" class="right">
           <img src="../imgs/dialogr.png" class="dialogr" alt="">
           <img src="../imgs/ava1.png" class="avar" alt="">
           <div class="contentr">
-            <p class="up">花间一壶酒，独酌无相亲。</p>
-            <p class="down"> --李白《月下独酌》</p>
+            <p class="up">{{ dialog.text }}</p>
+            <p class="down">{{ dialog.origin }}</p>
           </div>
         </div>
-        <div class="left">
+        <div v-else-if="dialog.position === 'left'"  class="left">
           <img src="../imgs/ava2.png" class="aval" alt="">
           <img src="../imgs/dialogl.png" class="dialogl" alt="">
           <div class="contentl">
-            <p class="up">言入黄花川，每逐青溪水。 </p>
-            <p class="down">--王维《青溪》</p>
+            <p class="up">{{ dialog.text }} </p>
+            <p class="down">{{ dialog.origin }}</p>
           </div>
         </div>
 
       </div>
     </div>
     <div class="bottom">
-      <input type="text" placeholder="请在此输入诗句">
+      <input type="text" placeholder="请在此输入诗句" v-model="inputValue">
+      <div @click="handleGetInput" class="btn">按钮</div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useStateStore } from '@/store/index.ts'
+const leftScore = ref(0)
+const rightScore = ref(0)
+const inputValue = ref("");
+const store = useStateStore();
+const turnsText = ref("到你啦！")
+const dialogs = ref([
+{text:'花间一壶酒，独酌无相亲。' ,origin:'--李白《月下独酌》',position:'right' },
+{ text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
+]);
+
 const poetries = [
-  { verse: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》' },
-  { "verse": "当窗理云鬓，对镜贴花黄。", "origin": "--《木兰辞》" },
-  { "verse": "采莲南塘秋，莲花过人头。", "origin": "--《西洲曲》" },
-  { "verse": "人归落雁后，思发在花前。", "origin": "--薛道衡《人日思归》" },
-  { "verse": "暮江平不动，春花满正开。", "origin": "--杨广《春江花月夜》" },
-  { "verse": "花须连夜发，莫待晓风吹。", "origin": "--武则天《催花诗》" },
-  { "verse": "他乡共酌金花酒，万里同悲鸿雁天。", "origin": "--卢照邻《九月九日玄武山旅眺》" },
-  { "verse": "解落三秋叶，能开二月花。", "origin": "--李峤《风》" },
-  { "verse": "江流宛转绕芳甸，月照花林皆似霰。", "origin": "--张若虚《春江花月夜》" },
-  { "verse": "昨夜闲潭梦落花，可怜春半不还家。", "origin": "--张若虚《春江花月夜》" },
-  { "verse": "火树银花合，星桥铁锁开。", "origin": "--苏味道《正月十五夜》" },
+  { text: "当窗理云鬓，对镜贴花黄。", origin: "--《木兰辞》", position: 'left' },
+  { text: "采莲南塘秋，莲花过人头。", origin: "--《西洲曲》", position: 'left' },
+  { text: "人归落雁后，思发在花前。", origin: "--薛道衡《人日思归》", position: 'left' },
+  { text: "暮江平不动，春花满正开。", origin: "--杨广《春江花月夜》", position: 'left' },
+  { text: "花须连夜发，莫待晓风吹。", origin: "--武则天《催花诗》", position: 'left' },
+  { text: "他乡共酌金花酒，万里同悲鸿雁天。", origin: "--卢照邻《九月九日玄武山旅眺》", position: 'left' },
+  { text: "解落三秋叶，能开二月花。", origin: "--李峤《风》", position: 'left' },
+  { text: "江流宛转绕芳甸，月照花林皆似霰。", origin: "--张若虚《春江花月夜》", position: 'left' },
+  { text: "昨夜闲潭梦落花，可怜春半不还家。", origin: "--张若虚《春江花月夜》", position: 'left' },
+  { text: "火树银花合，星桥铁锁开。", origin: "--苏味道《正月十五夜》", position: 'left' },
 ];
 
-const mypoetries = ref([
-  { verse: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独钓》' }
-])
+
+
+const handleGetInput = () => {
+  if (inputValue.value.trim() !== "") {
+    const inputParts = inputValue.value.split(" ");
+    const text = inputParts[0];
+    const origin = inputParts.slice(1).join(" ");
+    
+    dialogs.value.push({ text, origin, position: "right" });
+    rightScore.value+=1
+    inputValue.value = "";
+    turnsText.value = "请等待..."
+    setTimeout(() => {
+      const randomPoetry = getPoetry();
+      dialogs.value.push(randomPoetry);
+      leftScore.value+=1
+      turnsText.value = "到你啦 ！"
+    }, 3000); // 3秒后添加随机诗句
+    console.log(poetries)
+  }
+};
+
+
 const getPoetry = () => {
   const randomIndex = Math.floor(Math.random() * poetries.length);
-  return [poetries[randomIndex]];
-}
+  return poetries[randomIndex];
+};
+
+const timer = ref(180); // 初始倒计时时间为3分钟
+// 定时器函数，倒计时结束后记录 inputValue 的次数
+const startTimer = () => {
+  const intervalId = setInterval(() => {
+    timer.value--;
+    const inputCount = dialogs.value.length;
+    if (timer.value === 0) {
+      clearInterval(intervalId); // 清除定时器
+      store.changeFlywordState(2)
+      console.log("输入次数：" + inputCount);
+    }
+    if(dialogs.value.length===10){
+      timer.value = 0
+      clearInterval(intervalId); // 清除定时器
+      store.changeFlywordState(2)
+    }
+  }, 1000); // 每秒减少一秒
+};
+
+onMounted(() => {
+  startTimer(); // 组件挂载时启动定时器
+});
+
 </script>
 
 
@@ -112,12 +167,17 @@ const getPoetry = () => {
 .middle {
   padding-left: 35rem;
   padding-right: 35rem;
+  padding-top: 30rem;
+  /* padding-bottom: 30rem; */
+  overflow-y: auto;
+  max-height: 500rem;
+  /* background: green; */
 }
 
 
 .dialog {
-  padding-top: 30rem;
-  height: 410rem;
+  /* padding-top: 30rem; */
+  /* height: 410rem; */
   /* background: green; */
   position: relative;
 
@@ -207,16 +267,16 @@ const getPoetry = () => {
 
 
 
-
 .bottom {
   position: absolute;
   top: 570rem;
   left: 35rem;
+  display: flex;
+  justify-content: space-between;
 }
-
 .bottom input {
 
-  width: 1191rem;
+  width: 1080rem;
   height: 49rem;
 
   border-radius: 10rem;
@@ -225,6 +285,21 @@ const getPoetry = () => {
   border: none;
   outline: none;
   padding-left: 13rem;
+
+}
+
+.bottom .btn{
+width: 89rem;
+height: 49rem;
+margin-left: 17rem;
+border-radius: 10rem;
+background: rgba(158, 106, 83, 1);
+
+font-size: 24rem;
+font-weight: 400;
+letter-spacing: 0rem;
+line-height: 49rem;
+color: rgba(255, 255, 255, 1);
 
 }
 </style>
