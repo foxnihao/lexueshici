@@ -35,28 +35,48 @@ import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
 const inputValue = ref("清明时节雨纷纷，路上行人欲断魂。")
 const turnsText = ref("出题中")
+const poetries = ref([
+  { text: "山不在高，有仙则名。", position: "left", next: "水不在深，有龙则灵。", read: false },
+  { text: "明月几时有？把酒问青天。", position: "left", next: "不知天上宫阙，今夕是何年。", read: false },
+  { text: "白日依山尽，黄河入海流。", position: "left", next: "更上一层楼，欲穷千里目。", read: false },
+  { text: "日照香炉生紫烟，遥看瀑布挂前川。", position: "left", next: "飞流直下三千尺，疑是银河落九天。", read: false },
+  { text: "人生若只如初见，何事秋风悲画扇。", position: "left", next: "等闲变却故人心，却道故人心易变。", read: false },
+  { text: "清明时节雨纷纷，路上行人欲断魂。", position: 'left', next: '借问酒家何处有，牧童遥指杏花村。', read: true }
+]);
 const dialogs = ref([
   { text: "鹅鹅鹅，曲项向天歌。", position: "right" },
   { text: "白毛浮绿水，红掌拨清波。", position: "left" },
 ]);
 const chatContainer = ref(null);
 const dialogContainer = ref(null);
-
-
+// 生成一个介于min和max之间的随机整数
+const getPoetry = () => {
+  
+  while(true){
+    const randomIndex = Math.floor(Math.random() * poetries.value.length);
+    if(!poetries.value[randomIndex].read){
+    return poetries.value[randomIndex];
+    }
+  }
+};
 
 const handleGetInput = () => {
   if (inputValue.value.trim() !== "") {
-    dialogs.value.push({ text:inputValue.value,position: "right" });
-    inputValue.value = "";
+    dialogs.value.push({ text: inputValue.value, position: "right" });
     turnsText.value = "请作答"
+    const nextp = poetries.value.filter(item => item.text === inputValue.value.trim());
+    inputValue.value = "";
     setTimeout(() => {
-      dialogs.value.push( { text: "借问酒家何处有，牧童遥指杏花村。", position: "left" });
+      console.log(poetries.value, nextp)
+      dialogs.value.push({ text: nextp[0].next, position: "left" });
       turnsText.value = "出题中"
     }, 3000); // 3秒后添加随机诗
-    setTimeout(()=>{
+    setTimeout(() => {
       turnsText.value = "到你啦"
-      dialogs.value.push( { text: "  床前明月光，疑是地上霜。", position: "left" });
-    },5000)
+      // 获取随机诗句
+      const randomPoetry = getPoetry();
+      dialogs.value.push({ text: randomPoetry.text, position: "left" });
+    }, 5000)
   }
 };
 
@@ -71,10 +91,12 @@ const startTimer = () => {
       store.changeUpdownState(2)
       console.log("输入次数：" + inputCount);
     }
-    if(dialogs.value.length===4){
-      timer.value = 0
-      clearInterval(intervalId); // 清除定时器
-      store.changeUpdownState(2)
+    if (dialogs.value.length === 6) {
+      setTimeout(() => {
+        timer.value = 0
+        clearInterval(intervalId); // 清除定时器
+        store.changeUpdownState(2);
+      }, 5000)
     }
   }, 1000); // 每秒减少一秒
 };

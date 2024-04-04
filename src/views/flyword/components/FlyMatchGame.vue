@@ -5,15 +5,15 @@
       <img src="../imgs/ava2.png" alt="">
       <p class="p1">本文抽到的字为 </p>
       <img src="../imgs/font.png" alt="">
-      
+
       <img src="../imgs/ava1.png" class="aval" alt="">
       <p>{{ rightScore }}</p>
-      <p class="p2">{{ turnsText}}</p>
+      <p class="p2">{{ turnsText }}</p>
       <p style="margin-right: 22rem;">{{ timer }}</p>
     </div>
     <div class="middle">
-      <div class="dialog" v-for="(dialog, index) in dialogs" :key="index" >
-        <div  v-if="dialog.position === 'right'" class="right">
+      <div class="dialog" v-for="(dialog, index) in dialogs" :key="index">
+        <div v-if="dialog.position === 'right'" class="right">
           <img src="../imgs/dialogr.png" class="dialogr" alt="">
           <img src="../imgs/ava1.png" class="avar" alt="">
           <div class="contentr">
@@ -21,7 +21,7 @@
             <p class="down">{{ dialog.origin }}</p>
           </div>
         </div>
-        <div v-else-if="dialog.position === 'left'"  class="left">
+        <div v-else-if="dialog.position === 'left'" class="left">
           <img src="../imgs/ava2.png" class="aval" alt="">
           <img src="../imgs/dialogl.png" class="dialogl" alt="">
           <div class="contentl">
@@ -47,8 +47,8 @@ const inputValue = ref("");
 const store = useStateStore();
 const turnsText = ref("到你啦！")
 const dialogs = ref([
-{text:'花间一壶酒，独酌无相亲。' ,origin:'--李白《月下独酌》',position:'right' },
-{ text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
+  { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
+  { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);
 
 const poetries = [
@@ -71,15 +71,15 @@ const handleGetInput = () => {
     const inputParts = inputValue.value.split(" ");
     const text = inputParts[0];
     const origin = inputParts.slice(1).join(" ");
-    
+
     dialogs.value.push({ text, origin, position: "right" });
-    rightScore.value+=1
+    rightScore.value += 1
     inputValue.value = "";
     turnsText.value = "请等待..."
     setTimeout(() => {
       const randomPoetry = getPoetry();
       dialogs.value.push(randomPoetry);
-      leftScore.value+=1
+      leftScore.value += 1
       turnsText.value = "到你啦 ！"
     }, 3000); // 3秒后添加随机诗句
     console.log(poetries)
@@ -103,10 +103,12 @@ const startTimer = () => {
       store.changeFlywordState(2)
       console.log("输入次数：" + inputCount);
     }
-    if(dialogs.value.length===10){
-      timer.value = 0
-      clearInterval(intervalId); // 清除定时器
-      store.changeFlywordState(2)
+    if (dialogs.value.length === 10) {
+      setTimeout(() => {
+        timer.value = 0
+        clearInterval(intervalId); // 清除定时器
+        store.changeFlywordState(2)
+      }, 3000)
     }
   }, 1000); // 每秒减少一秒
 };
@@ -274,6 +276,7 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
 }
+
 .bottom input {
 
   width: 1080rem;
@@ -288,18 +291,18 @@ onMounted(() => {
 
 }
 
-.bottom .btn{
-width: 89rem;
-height: 49rem;
-margin-left: 17rem;
-border-radius: 10rem;
-background: rgba(158, 106, 83, 1);
+.bottom .btn {
+  width: 89rem;
+  height: 49rem;
+  margin-left: 17rem;
+  border-radius: 10rem;
+  background: rgba(158, 106, 83, 1);
 
-font-size: 24rem;
-font-weight: 400;
-letter-spacing: 0rem;
-line-height: 49rem;
-color: rgba(255, 255, 255, 1);
+  font-size: 24rem;
+  font-weight: 400;
+  letter-spacing: 0rem;
+  line-height: 49rem;
+  color: rgba(255, 255, 255, 1);
 
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="ud-content">
     <div class="top">
-      <p class="top-p">第一题</p>
+      <p class="top-p">第 {{orders[poIndex]}} 题</p>
       <el-rate max="1" v-model="isCollected" clearable />
     </div>
     <div class="middle">
@@ -19,20 +19,27 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+const isCollected = ref(0)
 const poetries = ref([
   { givened: '鹅鹅鹅，曲项向天歌', myanswer: '白毛浮绿水，红掌拨清波', trueanswer: '白毛浮绿水，红掌拨清波' },
-  { givened: '鹅鹅鹅，曲项向天歌', myanswer: '白毛浮嫩是，红掌拨清波', trueanswer: '白毛浮绿水，红掌拨清波' }
+  { givened: '床前明月光，疑是地上霜', myanswer: '举头望明月，低头想人生', trueanswer: '举头望明月，低头思故乡' }
 ])
-const isCollected = ref(0)
+const orders = ref(["一","二"])
 const poIndex = ref(0)
 const handleNext = () => {
   console.log("kkk")
-  poIndex.value--;
+  if(poIndex.value<poetries.value.length){
+    poIndex.value++;
+  }
 }
 const handleLast = () => {
-  poIndex.value++;
+  if(poIndex.value){
+    poIndex.value--;
   console.log("sss")
+  }
 }
+
+
 </script>
 
 

@@ -20,6 +20,9 @@ export const useStateStore = defineStore('state', () => {
   const changeMessage = (news)=>{
     
   }
+
+  const errPoetries = ref([])
+
   const changeUpdownState = (newstate:any)=>{
     console.log(newstate)
     updownState.value = newstate;
