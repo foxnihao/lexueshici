@@ -14,6 +14,7 @@ onMounted(() => {
 
 const handleEnterPersonGame = () => {
   console.log("游玩还是匹配")
+  store.feihuaPoetries = []
   if (store.beginState === "开始游玩") {
     store.changeFlywordState(1);
   } else {

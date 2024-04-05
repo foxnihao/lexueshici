@@ -44,7 +44,7 @@ const dialogs = ref([
   { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
   { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);
-
+const timer = ref(180); // 初始倒计时时间为3分钟
 const poetries = ref([
   { text: "当窗理云鬓，对镜贴花黄。", origin: "--《木兰辞》", position: 'left', read: false },
   { text: "采莲南塘秋，莲花过人头。", origin: "--《西洲曲》", position: 'left', read: false },
@@ -59,62 +59,61 @@ const poetries = ref([
 ]);
 
 
-
 const handleGetInput = async () => {
-  store.truePoetries3 += 1
-  store.allNums += 1
+  store.truePoetries3 += 1;
+  store.allNums += 1;
   if (inputValue.value.trim() !== "") {
     const inputParts = inputValue.value.split(" ");
     const text = inputParts[0];
     const origin = inputParts.slice(1).join(" ");
-
     dialogs.value.push({ text, origin, position: "right" });
+    store.addFeihua({ text, origin, position: "right" });
     inputValue.value = "";
-    turnsText.value = "请等待..."
-    setTimeout(() => {
-      const randomPoetry = getPoetry();
-      dialogs.value.push(randomPoetry);
-      turnsText.value = "到你啦 ！"
-    }, 3000); // 3秒后添加随机诗句
+    turnsText.value = "请等待...";
+
+    // 等待3秒后添加随机诗句
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    const randomPoetry = getPoetry();
+    dialogs.value.push(randomPoetry);
+    store.addFeihua(randomPoetry);
+    console.log("daia",store.feihuaPoetries)
+    turnsText.value = "到你啦！";
     await new Promise(resolve => setTimeout(resolve, 5000)); // 等待3秒
     inputValue.value = getPoetry().text +getPoetry().origin
   }
+  
 };
 
 const getPoetry = () => {
-  while (true) {
-    const randomIndex = Math.floor(Math.random() * poetries.value.length);
-    if (!poetries.value[randomIndex].read) {
-      poetries.value[randomIndex].read = true
-      return poetries.value[randomIndex];
-    }
+  const unreadPoetries = poetries.value.filter(poetry => !poetry.read);
+  if (unreadPoetries.length === 0) {
+    // 所有诗句都已读取，返回一个空对象或者其他指示诗句已读取完的信息
+    return { text: "", origin: "", position: "" };
   }
+  const randomIndex = Math.floor(Math.random() * unreadPoetries.length);
+  unreadPoetries[randomIndex].read = true;
+  return unreadPoetries[randomIndex];
 };
-const timer = ref(180); // 初始倒计时时间为3分钟
-// 定时器函数，倒计时结束后记录 inputValue 的次数
+
 const startTimer = () => {
-  const intervalId = setInterval(async () => {
+  const intervalId = setInterval(() => {
     timer.value--;
     const inputCount = dialogs.value.length;
-    if (timer.value === 0) {
+    if (timer.value === 0 || dialogs.value.length === 6) {
       clearInterval(intervalId); // 清除定时器
-      store.changeFlywordState(2)
+      store.changeFlywordState(2);
       console.log("输入次数：" + inputCount);
-    }
-    if (dialogs.value.length === 6) {
-      setTimeout(() => {
-        timer.value = 0
-        clearInterval(intervalId); // 清除定时器
-        store.changeFlywordState(2)
-      }, 3000)
     }
   }, 1000); // 每秒减少一秒
 };
+
 
 onMounted(() => {
   startTimer(); // 组件挂载时启动定时器
   store.truePoetries3 = 0
   store.allNums = 0
+  console.log("dssds",store.feihuaPoetries)
 });
 
 
@@ -131,6 +130,13 @@ onMounted(() => {
   flex-direction: column;
   position: relative;
 }
+.star{
+    position:absolute;
+    cursor:pointer;
+    right:25.5rem;
+    max-height:42.75rem;
+    max-width:45rem;
+  }
 
 .top {
   width: 1261rem;

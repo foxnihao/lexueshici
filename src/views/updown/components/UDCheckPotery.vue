@@ -2,7 +2,9 @@
   <div class="ud-content">
     <div class="top">
       <p class="top-p">第 {{orders[poIndex]}} 题</p>
-      <el-rate max="1" v-model="isCollected" clearable />
+      <!-- <el-rate max="1" v-model="isCollected" clearable /> -->
+      <img :src="isFavorited[poIndex] ? starImg : starNImg" @click="toggleFavorite(poIndex)" alt="favorite"
+              class="star" />
     </div>
     <div class="middle">
       <p>上句：{{ poetries[poIndex].givened }}</p>
@@ -42,6 +44,14 @@ const handleLast = () => {
   }
 }
 
+const isFavorited = ref(store.poetries.map(() => false));
+
+const toggleFavorite = (index: number) => {
+  isFavorited.value[index] = !isFavorited.value[index];
+};
+const starImg = new URL('../imgs/star.png', import.meta.url).href;
+const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
+
 
 </script>
 
@@ -50,6 +60,13 @@ const handleLast = () => {
 ::v-deep .el-icon svg {
   height: 2.5em;
   width: 2.5em;
+}
+.star {
+  position: absolute;
+  cursor: pointer;
+  right: 25.5rem;
+  max-height: 42.75rem;
+  max-width: 45rem;
 }
 .ud-content {
   width: 1261rem;
