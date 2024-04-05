@@ -13,7 +13,7 @@
     </div>
     <div class="middle">
       <div class="dialog" v-for="(dialog, index) in dialogs" :key="index">
-        <div v-if="dialog.position === 'right'" class="right">
+        <div v-if="dialog.position as string === 'right'" class="right">
           <img src="../imgs/dialogr.png" class="dialogr" alt="">
           <img src="../imgs/ava1.png" class="avar" alt="">
           <div class="contentr">

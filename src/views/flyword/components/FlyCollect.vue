@@ -74,12 +74,12 @@
 </template>
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref, Ref } from 'vue'
-import { ElRate } from 'element-plus'
+
 import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
-const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
+
 const values = reactive<{ [key: string]: Ref<number> }>({});
-const val1 = ref(0)
+
 const getModelVal = (index: number): Ref<number> => {
   if (!values[`value${index}`]) {
     values[`value${index}`] = ref(0);
@@ -95,15 +95,10 @@ onMounted(() => {
 });
 
 // 修改change方法签名，接受值和索引
-const change = (val: number, index: number) => {
-  console.log(val, index);
-  // getModelVal(index).value = val;
-  values[`value${index}`] = ref(val)
-  console.log(values, "va", values[`value${index}`].value, val)
-};
+
 
 // 计算属性，根据index动态获取对应的值
-const computedValue = (index: number) => computed(() => values[`value${index}`]);
+
 
 const isFavorited = ref(store.feihuaPoetries.map(() => false));
 

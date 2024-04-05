@@ -18,8 +18,7 @@ import GamePlay from '@/views/game4/components/GamePlay.vue'
 import GameBack from '@/views/game4/components/GameBack.vue';
 import { useGameStore } from '@/store/game4.ts'
 import { markRaw, onMounted, ref, watch } from 'vue';
-const tabIndex = ref(0);
-const btnContent = ref("开始游玩");
+
 const store = useGameStore();
 const nowComponent = ref(markRaw(GameBegin));
 onMounted(() => {

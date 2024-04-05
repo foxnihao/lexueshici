@@ -33,18 +33,12 @@ import Tile_back from './Tile_back.vue';
 
 
   
-    const choose=ref(-1);
+
     const store=useGameStore();
-    const handleClick=(index: number)=>{
-        choose.value=index;
-    }
-    const isDuelGame=computed(()=>store.beginState==="开始匹配");
+
+
     const total_questions=ref(2);
     const isLastQuestion = computed(() => store.q_id === total_questions.value);
-    const ischoosed=(index: number)=>{
-      if(index===choose.value) return true
-      else return false
-    }
 
     const numbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
@@ -72,7 +66,7 @@ const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
 
      const {trigger}=store.next_qHook;
 
-    const max_q=ref(0);
+
     const next_q=()=>{
   //     if(store.q_id>max_q.value) {
   //       max_q.value=store.q_id;

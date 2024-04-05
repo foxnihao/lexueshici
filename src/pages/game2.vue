@@ -18,8 +18,8 @@ import GamePlay from '@/views/game2/components/GamePlay.vue'
 import GameBack from '@/views/game2/components/GameBack.vue';
 import { useGameStore } from '@/store/game2.ts'
 import { markRaw, onMounted, ref, watch } from 'vue';
-const tabIndex = ref(0);
-const btnContent = ref("开始游玩");
+
+
 const store = useGameStore();
 const nowComponent = ref(markRaw(GameBegin));
 onMounted(() => {
@@ -45,15 +45,7 @@ watch(() => store.GameState, (newstate) => {
     }
 })
 
-const handleCurrentIndexUpdate = (newIndex: number) => {
-    console.log("变化", newIndex)
 
-    if (newIndex === 0) {
-        btnContent.value = "开始游玩"
-    } else {
-        btnContent.value = "开始匹配"
-    }
-}
 const emits = defineEmits(['update:currentIndex']); // 定义需要向父组件发送的自定义事件
 const currentIndex = ref(0);
 watch(currentIndex, (newVal) => {

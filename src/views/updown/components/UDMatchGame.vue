@@ -147,7 +147,7 @@ const startTimer = () => {
   }, 1000); // 每秒减少一秒
 };
 
-const handleTimerEnd = (inputCount: string | number) => {
+const handleTimerEnd = (_inputCount: string | number) => {
   store.changeUpdownState(2);
 };
 
@@ -358,6 +358,9 @@ onMounted(() => {
   border: none;
   outline: none;
   padding-left: 13rem;
+  font-size: 24rem;
+  font-weight: 400;
+  color: rgba(107, 0, 0, 1);
 }
 
 .bottom .btn {

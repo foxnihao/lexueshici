@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const currentIndex = ref(1)
+
+
 </script>
 
 <style scoped>

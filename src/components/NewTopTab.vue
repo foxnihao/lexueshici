@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch, defineProps, defineEmits } from 'vue';
+import { onMounted, ref,  defineProps, defineEmits } from 'vue';
 import { useStateStore } from '@/store/index.ts'
 const emits = defineEmits(['update:currentIndex']); // 定义需要向父组件发送的自定义事件
 const props = defineProps(['imgl', 'imgr', 'fontColor', 'bgColor', 'imgb']);
@@ -45,7 +45,7 @@ const imgr = ref();
 const imgb = ref()
 const leftContent = "自主游玩"
 const rightContent = "匹配游玩"
-const fontColor = props.fontColor
+
 const store = useStateStore();
 
 onMounted(() => {

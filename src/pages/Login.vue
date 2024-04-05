@@ -37,7 +37,7 @@ import Background from '../components/Background.vue';
 // import TopTab from '../components/TopTab.vue';
 import LearnModule from '@/views/login/LearnModule.vue';
 import MessageModule from '@/views/login/MessageModule.vue';
-import { onMounted, ref, defineProps } from 'vue';
+import { ref } from 'vue';
 
 const currentIndex = ref(1);
 

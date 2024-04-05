@@ -29,9 +29,9 @@
 
 <script setup lang="ts">
 
-import router from '@/router';
+
 import Background from '../components/Background.vue';
-import FlyingWord from './FlyingWord.vue';
+
 // TypeScript脚本区域，如果你需要定义一些数据或方法，请在这里添加
 </script>
 

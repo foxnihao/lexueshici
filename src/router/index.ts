@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Login from '../pages/Login.vue'
-import Background from '../components/Background.vue'
-import TopTab from '@/components/TopTab.vue'
+
+
 import FlyingWord from '@/pages/FlyingWord.vue'
 import game4 from '@/pages/game4.vue'
 import game2 from '@/pages/game2.vue'

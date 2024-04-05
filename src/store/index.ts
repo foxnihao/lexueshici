@@ -17,7 +17,7 @@ export const useStateStore = defineStore('state', () => {
   }
   const message = ref(["恭喜你获得胜利！！","10"])
   
-  const changeMessage = (news: any)=>{
+  const changeMessage = ()=>{
     
   }
 

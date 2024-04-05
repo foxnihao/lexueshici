@@ -28,18 +28,18 @@
   </template>
   
   <script setup lang="ts">
-  import router from '@/router';
-import { onMounted, ref, watch, defineProps, defineEmits } from 'vue';
+
+import { onMounted, ref,  defineProps, defineEmits } from 'vue';
 
   const emits = defineEmits(['update:currentIndex']); // 定义需要向父组件发送的自定义事件
   const props = defineProps(['imgl','imgr','imgb','color','fontColor','currentIndex','handleLeftClick1','handleLeftClick2','handleRightClick2','handleRightClick1']);
-  const currentIndex = ref(0);
+
   const imgl = ref();
   const imgr = ref();
   const imgb=ref();
   const leftContent = "自主游玩"
   const rightContent = "匹配游玩"
-  const fontColor = props.fontColor
+
 
   
   

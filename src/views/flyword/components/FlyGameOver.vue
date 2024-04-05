@@ -14,7 +14,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import {  ref } from 'vue';
 import { useStateStore } from '@/store';
 const store = useStateStore()
 const successMessage = ref("恭喜你获得胜利！！")
