@@ -6,8 +6,8 @@
       <img src="../imgs/font.png" alt="">
     </div>
     <div class="middle">
-      <div class="dialog">
-        <div class="right">
+      <!-- <div class="dialog"> -->
+      <!-- <div class="right">
           <div class="collect1">
             <el-rate v-model="value1" :max=1 :void-color="` rgba(166, 166, 166, 1)`" :colors="colors" clearable />
           </div>
@@ -28,9 +28,44 @@
             <p class="up">言入黄花川，每逐青溪水。 </p>
             <p class="down">--王维《青溪》</p>
           </div>
+        </div> -->
+
+      <div class="dialog" v-for="(dialog, index) in store.feihuaPoetries" :key="index">
+        <div v-if="dialog.position === 'right'" class="right">
+          <div class="collect1">
+            <!-- <el-rate @change="(value) => change(value, index)" :value="computedValue(index)" :max="1"
+              :void-color="`rgba(166, 166, 166, 1)`" :colors="colors" clearable /> -->
+            <img :src="isFavorited[index] ? starImg : starNImg" @click="toggleFavorite(index)" alt="favorite"
+              class="star" />
+          </div>
+          <img src="../imgs/dialogr.png" class="dialogr" alt="">
+          <img src="../imgs/ava1.png" class="avar" alt="">
+          <div class="contentr">
+            <p class="up">{{ dialog.text }}</p>
+            <p class="down">{{ dialog.origin }}</p>
+          </div>
+
+        </div>
+        <div v-else-if="dialog.position === 'left'" class="left">
+          <img src="../imgs/ava2.png" class="aval" alt="">
+          <img src="../imgs/dialogl.png" class="dialogl" alt="">
+          <div class="collect2">
+            <!-- <el-rate @change="(value) => change(value, index)" :value="computedValue(index)" :max="1"
+              :void-color="`rgba(166, 166, 166, 1)`" :colors="colors" clearable /> -->
+
+            <img :src="isFavorited[index] ? starImg : starNImg" @click="toggleFavorite(index)" alt="favorite"
+              class="star" />
+          </div>
+          <div class="contentl">
+            <p class="up">{{ dialog.text }} </p>
+            <p class="down">{{ dialog.origin }}</p>
+          </div>
+
         </div>
 
       </div>
+
+      <!-- </div> -->
     </div>
     <div class="bottom">
       <input type="text" placeholder="请在此输入诗句">
@@ -38,12 +73,46 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, onMounted, reactive, ref, Ref } from 'vue'
 import { ElRate } from 'element-plus'
-const value1 = ref(0)
-// const colors = ref(["rgba(255, 195, 0, 1)"])
+import { useStateStore } from '@/store/index.ts'
+const store = useStateStore();
 const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
-const value2 = ref(0)
+const values = reactive<{ [key: string]: Ref<number> }>({});
+const val1 = ref(0)
+const getModelVal = (index: number): Ref<number> => {
+  if (!values[`value${index}`]) {
+    values[`value${index}`] = ref(0);
+  }
+  return values[`value${index}`];
+};
+
+onMounted(() => {
+  for (let i = 0; i < store.feihuaPoetries.length; i++) {
+    getModelVal(i);
+  }
+  console.log(values)
+});
+
+// 修改change方法签名，接受值和索引
+const change = (val: number, index: number) => {
+  console.log(val, index);
+  // getModelVal(index).value = val;
+  values[`value${index}`] = ref(val)
+  console.log(values, "va", values[`value${index}`].value, val)
+};
+
+// 计算属性，根据index动态获取对应的值
+const computedValue = (index: number) => computed(() => values[`value${index}`]);
+
+const isFavorited = ref(store.feihuaPoetries.map(() => false));
+
+const toggleFavorite = (index: number) => {
+  isFavorited.value[index] = !isFavorited.value[index];
+};
+const starImg = new URL('../imgs/star.png', import.meta.url).href;
+const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
+
 </script>
 
 
@@ -51,6 +120,14 @@ const value2 = ref(0)
 :deep .el-icon svg {
   height: 3em;
   width: 3em;
+}
+
+.star {
+  position: absolute;
+  cursor: pointer;
+  right: 25.5rem;
+  max-height: 42.75rem;
+  max-width: 45rem;
 }
 
 .game-box {
@@ -91,12 +168,16 @@ const value2 = ref(0)
 .middle {
   padding-left: 35rem;
   padding-right: 35rem;
+  padding-top: 30rem;
+  /* padding-bottom: 30rem; */
+  overflow-y: auto;
+  max-height: 500rem;
 }
 
 
 .dialog {
-  padding-top: 30rem;
-  height: 410rem;
+  /* padding-top: 30rem; */
+  /* height: 410rem; */
   /* background: green; */
   position: relative;
 
@@ -152,6 +233,39 @@ const value2 = ref(0)
   color: rgba(77, 23, 0, 1);
 }
 
+.up {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.down {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog .left {
+  margin-top: -60rem;
+  width: 100%;
+  position: relative;
+  height: 215rem;
+  display: flex;
+  justify-content: flex-start;
+
+  .dialogl {
+    width: 549rem;
+    height: 190rem;
+    position: absolute;
+    top: 20rem;
+    left: 50rem;
+
+  }
+
+  .aval {
+    vertical-align: bottom;
+  }
+}
+
+
 .collect1,
 .collect2 {
   /* width: 65rem;
@@ -166,7 +280,7 @@ const value2 = ref(0)
 
 .collect2 {
   position: absolute;
-  left: 620rem;
+  left: 700rem;
   top: 115rem;
 }
 

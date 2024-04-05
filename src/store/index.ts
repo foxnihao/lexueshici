@@ -51,6 +51,11 @@ export const useStateStore = defineStore('state', () => {
     { givened: '床前明月光，疑是地上霜', myanswer: '举头望明月，低头想人生', trueanswer: '举头望明月，低头思故乡' }
   ]
 
+  const feihuaPoetries= ref([
+    { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
+    { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
+  ])
+
   const addErr = (givened: any,myanswer: any,trueanswer: any)=>{
     console.log("失败")
     poetries.push({
@@ -60,7 +65,17 @@ export const useStateStore = defineStore('state', () => {
 
     })
   }
+  const addFeihua = (poetry: { text: string; origin: string; position: string; })=>{
+    console.log(poetry,"add")
+    feihuaPoetries.value.push(poetry)
+    console.log(feihuaPoetries,"ddddd")
+  }
+
+  const feihuaPoetriesclear = ()=>{
+    feihuaPoetries.value = []
+  }
 
   return { beginState,flywordState,updownState,message,changeMessage,changeBeginState ,changeFlywordState,changeUpdownState,handleReturn,
-    checkoutIsTrue, addErr ,truePoetries1,truePoetries2,truePoetries3,truePoetries4,allNums,poetries}
+    checkoutIsTrue, addErr ,addFeihua,truePoetries1,truePoetries2,truePoetries3,truePoetries4,allNums,
+    poetries,feihuaPoetries,feihuaPoetriesclear}
 })

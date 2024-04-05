@@ -23,8 +23,8 @@ const handleAgain = ()=>{
   store.changeFlywordState(0)
 }
 
-const handleCheck = ()=>{
-  store.changeFlywordState(4)
+const handleCheck = async()=>{
+  await store.changeFlywordState(4)
 }
 
 </script>
