@@ -338,6 +338,10 @@ onMounted(() => {
   outline: none;
   padding-left: 13rem;
 
+  font-size: 24rem;
+  font-weight: 400;
+  color: rgba(107, 0, 0, 1);
+
 }
 
 .bottom {
