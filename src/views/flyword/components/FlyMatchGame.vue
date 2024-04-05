@@ -34,7 +34,7 @@
     </div>
     <div class="bottom">
       <input type="text" placeholder="请在此输入诗句" v-model="inputValue">
-      <div @click="handleGetInput" class="btn">按钮</div>
+      <div @click="handleGetInput" class="btn">发送</div>
     </div>
   </div>
 </template>
@@ -86,12 +86,12 @@ const handleGetInput = async () => {
     const randomPoetry = getPoetry();
     dialogs.value.push(randomPoetry);
     store.addFeihua(randomPoetry);
-    console.log("daia",store.feihuaPoetries)
+    console.log("daia", store.feihuaPoetries)
     turnsText.value = "到你啦！";
     await new Promise(resolve => setTimeout(resolve, 5000)); // 等待3秒
-    inputValue.value = getPoetry().text +getPoetry().origin
+    inputValue.value = getPoetry().text + getPoetry().origin
   }
-  
+
 };
 
 const getPoetry = () => {
@@ -122,7 +122,7 @@ onMounted(() => {
   startTimer(); // 组件挂载时启动定时器
   store.truePoetries3 = 0
   store.allNums = 0
-  console.log("dssds",store.feihuaPoetries)
+  console.log("dssds", store.feihuaPoetries)
 });
 
 
@@ -297,7 +297,9 @@ onMounted(() => {
   border: none;
   outline: none;
   padding-left: 13rem;
-
+  font-size: 24rem;
+  font-weight: 400;
+  color: rgba(77, 23, 0, 1);
 }
 
 .bottom .btn {
