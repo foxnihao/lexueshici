@@ -48,13 +48,17 @@ const handleEnterPersonGame = () => {
     width: 362rem;
     height: 134rem;
     border-radius: 10rem;
-    background: rgba(251, 243, 230, 1);
+    background-color: rgba(251, 243, 230, 1);
     text-align: center;
     font-size: 48rem;
     font-weight: 400;
     line-height: 134rem;
     color: rgba(77, 23, 0, 1);
+    cursor: pointer;
   }
+  .btn:hover{
+      background-color: rgb(238, 228, 211);
+    }
 
 }
 </style>

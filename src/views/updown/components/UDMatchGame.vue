@@ -365,12 +365,16 @@ onMounted(() => {
   height: 49rem;
   margin-left: 17rem;
   border-radius: 10rem;
-  background: rgba(156, 82, 82, 1);
+  background-color: rgba(156, 82, 82, 1);
 
   font-size: 24rem;
   font-weight: 400;
   letter-spacing: 0rem;
   line-height: 49rem;
   color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+.bottom .btn:hover {
+  background-color: rgb(140, 68, 68);
 }
 </style>
