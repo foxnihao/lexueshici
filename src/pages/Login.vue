@@ -23,6 +23,7 @@
           {{ rightContent }}
         </div>
       </div>
+      <div class="save"  v-if="currentIndex === 1" >保存修改</div>
       <!-- <TopTab :current-index="tabIndex"   @tabChange="handleTabChange" :left-content="`学习报告`" :middle-content="`个人信息`" :right-content="`我的收藏`" :bg-color="`rgba(242, 196, 196, 1)`" /> -->
 
       <LearnModule v-if="currentIndex === 0" />
@@ -137,5 +138,27 @@ const handleThirdClick = () => {
   color: rgba(107, 0, 0, 1);
   cursor: pointer;
   /* 添加鼠标指针样式，表明可点击 */
+}
+
+.save {
+  width: 124rem;
+  height: 50rem;
+  opacity: 1;
+  border-radius: 10rem;
+  background: rgba(242, 196, 196, 1);
+  left: 1249rem;
+  font-size: 24rem;
+  font-weight: 400;
+  letter-spacing: 0rem;
+  line-height:50rem;
+  text-align: center;
+  color: rgba(107, 0, 0, 1);
+  position: absolute;
+  top: 436rem;
+  right: 100rem;
+  cursor: pointer;
+}
+.save:hover{
+  background-color: rgb(219, 147, 147);
 }
 </style>
