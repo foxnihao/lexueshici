@@ -24,7 +24,7 @@
     </div>
     <div class="bottom">
       <input type="text" placeholder="请在此处作答" v-model="inputValue">
-      <div @click="handleGetInput" class="btn">按钮</div>
+      <div @click="handleGetInput" class="btn">发送</div>
     </div>
 
   </div>
@@ -154,6 +154,7 @@ const handleTimerEnd = (inputCount: string | number) => {
 onMounted(() => {
   startTimer(); // 组件挂载时启动定时器
   store.truePoetries3 = 0
+  store.allNums = 0
 });
 
 
@@ -325,6 +326,10 @@ onMounted(() => {
   border: none;
   outline: none;
   padding-left: 13rem;
+
+  font-size: 24rem;
+  font-weight: 400;
+  color: rgba(107, 0, 0, 1);
 }
 
 .bottom .btn {

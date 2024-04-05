@@ -3,17 +3,23 @@
     <Background />
 
     <div class="login">
+
       <div class="tabbox">
-        <div   :class="{ 'active': currentIndex === 0 }"  class="btn"
-          @click="handleLeftClick">
+        <router-link class="router-link" to="/">
+          <div class="left">
+            <div class="back-imgbox">
+              <img src="@/views/flyword/imgs/back.png" class="back-img">
+            </div>
+            <p> 返回</p>
+          </div>
+        </router-link>
+        <div :class="{ 'active': currentIndex === 0 }" class="btn" @click="handleLeftClick">
           {{ leftContent }}
         </div>
-        <div   :class="{ 'active': currentIndex === 1 }"  class="btn"
-          @click="handleRightClick">
+        <div :class="{ 'active': currentIndex === 1 }" class="btn" @click="handleRightClick">
           {{ middleContent }}
         </div>
-        <div   :class="{ 'active': currentIndex === 2 }"  class="btn"
-          @click="handleThirdClick">
+        <div :class="{ 'active': currentIndex === 2 }" class="btn" @click="handleThirdClick">
           {{ rightContent }}
         </div>
       </div>
@@ -61,11 +67,52 @@ const handleThirdClick = () => {
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
+}
+
+.router-link {
+  text-decoration: none;
+  /* 移除下划线 */
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 64rem;
+  top: 90rem;
+}
+
+.router-link:hover {
+  text-decoration: none;
+  /* 移除悬停时的下划线 */
+}
+
+.left {
+  height: 53rem;
+  font-size: 36rem;
+  font-weight: 400;
+  line-height: 52.13rem;
+  color: rgba(107, 0, 0, 1);
+  display: flex;
+  align-items: center;
 
 }
-.active{
+
+.back-imgbox {
+  width: 68rem;
+  height: 68rem;
+  display: flex;
+  align-items: center;
+
+}
+
+.back-img {
+  max-width: 50rem;
+  max-height: 50rem;
+}
+
+.active {
   background-color: rgba(242, 196, 196, 1);
 }
+
 .tabbox {
   display: flex;
   justify-content: space-between;

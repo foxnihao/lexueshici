@@ -28,8 +28,8 @@
       </div>
     </div>
     <div class="bottom">
-      <input type="text" placeholder="请在此输入诗句" v-model="inputValue">
-      <div @click="handleGetInput" class="btn">按钮</div>
+      <input type="text" placeholder="请在此输入诗句" v-model="inputValue" class="input">
+      <div @click="handleGetInput" class="btn">发送</div>
     </div>
   </div>
 </template>
@@ -279,7 +279,7 @@ onMounted(() => {
   justify-content: space-between;
 }
 
-.bottom input {
+.bottom .input {
 
   width: 1080rem;
   height: 49rem;
@@ -290,7 +290,9 @@ onMounted(() => {
   border: none;
   outline: none;
   padding-left: 13rem;
-
+  font-size: 24rem;
+  font-weight: 400;
+  color: rgba(77, 23, 0, 1);
 }
 
 .bottom .btn {

@@ -1,40 +1,48 @@
 <template>
   <div class="tabbox">
-
-    <router-link v-if="store.flywordState === 0||store.updownState===0"  class="router-link" to="/">
-      <div class="left" :style="{ color: props.fontColor }">
-        < 返回 </div>
+    <router-link v-if="store.flywordState === 0 || store.updownState === 0" class="router-link" to="/">
+      <div class="left">
+        <div class="back-imgbox">
+          <img :src="imgb" class="back-img">
+        </div>
+        <p :style="{ color: props.fontColor }"> 返回</p>
+      </div>
     </router-link>
-    <div v-else class="left" :style="{ color: props.fontColor }" @click="handleReutrn">
-      < 返回 </div>
-
-    <div class="middle">
-      <div v-if="currentIndex === 0">
-        <img :src="imgl" class="btnimg" alt="" @click="handleLeftClick1">
+      <div class="left"  v-else  @click="handleReutrn" >
+        <div class="back-imgbox">
+          <img :src="imgb" class="back-img">
+        </div>
+        <p :style="{ color: props.fontColor }"> 返回</p>
       </div>
 
-      <div class="btn" v-if="currentIndex === 1" @click="handleLeftClick2" :style="{ color: props.fontColor }">
-        {{ leftContent }}
-      </div>
-      <div v-if="currentIndex === 1">
-        <img :src="imgr" class="btnimg" alt="" @click="handleRightClick2">
-      </div>
-      <div class="btn" v-if="currentIndex === 0" @click="handleRightClick1" :style="{ color: props.fontColor }">
-        {{ rightContent }}
-      </div>
+        <div class="middle">
+          <div v-if="currentIndex === 0">
+            <img :src="imgl" class="btnimg" alt="" @click="handleLeftClick1">
+          </div>
+
+          <div class="btn" v-if="currentIndex === 1" @click="handleLeftClick2" :style="{ color: props.fontColor }">
+            {{ leftContent }}
+          </div>
+          <div v-if="currentIndex === 1">
+            <img :src="imgr" class="btnimg" alt="" @click="handleRightClick2">
+          </div>
+          <div class="btn" v-if="currentIndex === 0" @click="handleRightClick1" :style="{ color: props.fontColor }">
+            {{ rightContent }}
+          </div>
+        </div>
+        <div class="right" :style="{ color: props.fontColor, backgroundColor: props.bgColor }">游戏规则</div>
     </div>
-    <div class="right" :style="{ color: props.fontColor }">游戏规则</div>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch, defineProps, defineEmits } from 'vue';
 import { useStateStore } from '@/store/index.ts'
 const emits = defineEmits(['update:currentIndex']); // 定义需要向父组件发送的自定义事件
-const props = defineProps(['imgl', 'imgr', 'fontColor']);
+const props = defineProps(['imgl', 'imgr', 'fontColor', 'bgColor', 'imgb']);
 const currentIndex = ref(0);
 const imgl = ref();
 const imgr = ref();
+const imgb = ref()
 const leftContent = "自主游玩"
 const rightContent = "匹配游玩"
 const fontColor = props.fontColor
@@ -43,6 +51,7 @@ const store = useStateStore();
 onMounted(() => {
   imgl.value = `../src${props.imgl}`
   imgr.value = `../src${props.imgr}`
+  imgb.value = `../src${props.imgb}`
   console.log("top", props)
   console.log(import.meta.url)
 })
@@ -125,11 +134,13 @@ const handleRightClick2 = () => {
 
 <style scoped>
 .router-link {
-  text-decoration: none; /* 移除下划线 */
+  text-decoration: none;
+  /* 移除下划线 */
 }
 
 .router-link:hover {
-  text-decoration: none; /* 移除悬停时的下划线 */
+  text-decoration: none;
+  /* 移除悬停时的下划线 */
 }
 
 .tabbox {
@@ -148,6 +159,18 @@ const handleRightClick2 = () => {
   font-weight: 400;
   line-height: 52.13rem;
   color: rgba(77, 23, 0, 1);
+  display: flex;
+  
+}
+
+.back-imgbox {
+  width: 68rem;
+  height: 68rem;
+}
+
+.back-img {
+  max-width: 50rem;
+  max-height: 50rem;
 }
 
 .middle {
@@ -167,7 +190,7 @@ const handleRightClick2 = () => {
   height: 63rem;
   opacity: 1;
   border-radius: 10rem;
-  background: rgba(242, 196, 196, 1);
+  /* background: rgba(242, 196, 196, 1); */
 
 
 }

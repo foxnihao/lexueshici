@@ -26,7 +26,7 @@
     </div>
     <div class="bottom">
       <input type="text" placeholder="请在此输入诗句" v-model="inputValue">
-      <div @click="handleGetInput" class="btn">按钮</div>
+      <div @click="handleGetInput" class="btn">发送</div>
     </div>
   </div>
 </template>
@@ -72,7 +72,6 @@ const getPoetry = () => {
 watch(dialogs.value, (_n, _o) => {
   store.allNums = dialogs.value.filter(item=>item.position==="right").length
   if (_n.length % 4 === 0) {
-    console.log(_n, _n.length)
     const randomPoetry = getPoetry();
     inputValue.value = randomPoetry.text
     randomPoetry.read = true
@@ -86,7 +85,6 @@ const handleGetInput = async () => {
   const myInput = inputValue.value.trim();
 
   if (dialogs.value.length % 4 === 3) { // 答题逻辑
-    console.log("我大体", myInput)
     dialogs.value.push({ text: myInput, position: "right" });
     if (store.checkoutIsTrue(lastPoetry.value.next, myInput)) {
       store.truePoetries3++;
@@ -97,14 +95,12 @@ const handleGetInput = async () => {
   } else if (dialogs.value.length % 4 === 0) { // 出题逻辑
     store.truePoetries3++;
     dialogs.value.push({ text: inputValue.value, position: "right" });
-    console.log("我出体")
     turnsText.value = "请作答";
     var nextp = null
     poetries.value.forEach(poetry => {
       if (poetry.text === inputValue.value.trim()) {
         poetry.read = true;
         nextp = poetry
-        console.log(nextp)
       }
     });
     inputValue.value = "";
@@ -153,13 +149,13 @@ const startTimer = () => {
 
 const handleTimerEnd = (inputCount: string | number) => {
   store.changeUpdownState(2);
-  console.log("输入次数：" + inputCount);
 };
 
 
 onMounted(() => {
   startTimer(); // 组件挂载时启动定时器
   store.truePoetries3 = 0
+  store.allNums = 0
 });
 
 </script>

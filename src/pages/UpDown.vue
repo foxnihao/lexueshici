@@ -2,8 +2,8 @@
   <div>
     <Background />
     <div class="updown">
-      <NewTopTab  :current-index="tabIndex" :font-color="`rgba(107, 0, 0, 1)`"
-      :imgl="`/views/updown/imgs/topbtnl.png`"  :imgr="`/views/updown/imgs/topbtnr.png`" />
+      <NewTopTab  :current-index="tabIndex" :font-color="`rgba(107,0,0, 1)`" :bg-color=" `rgba(242, 196, 196, 1)`"
+      :imgl="`/views/updown/imgs/topbtnl.png`"  :imgr="`/views/updown/imgs/topbtnr.png`"  :imgb="'/views/updown/imgs/back.png'"/>
         <div style="height: 30rem;"></div>
       <component :is="nowComponent"></component>
     </div>

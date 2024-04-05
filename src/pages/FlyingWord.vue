@@ -2,8 +2,8 @@
   <div>
     <Background />
     <div class="flyingword">
-      <NewTopTab   :bg-color="'rgba(130, 65, 65, 1)'" :font-color="`rgba(77, 23, 0, 1)`"  :current-index="tabIndex" 
-      :imgl="`/views/flyword/imgs/topbtnl.png`"  :imgr="`/views/flyword/imgs/topbtnr.png`"  />
+      <NewTopTab   :bgColor="'rgba(235, 192, 174, 1)'" :font-color="`rgba(77, 23, 0, 1)`"  :current-index="tabIndex" 
+      :imgl="`/views/flyword/imgs/topbtnl.png`"  :imgr="`/views/flyword/imgs/topbtnr.png`"  :imgb="'/views/flyword/imgs/back.png'" />
         <div style="height: 30rem;"></div>
       <component :is="nowComponent"></component>
     </div>
