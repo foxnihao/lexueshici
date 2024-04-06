@@ -5,7 +5,7 @@
     <div class="over-img">
       <img src="@/assets/imgs/success.png" alt="">
       <p>答对{{store.truePoetries3}}题</p>
-      <p>正确率{{ Number((store.truePoetries3/store.allNums*100).toFixed(0))+"%" }}</p>
+      <p>正确率{{ store.allNums?Number((store.truePoetries3/store.allNums*100).toFixed(0))+"%":0+"%" }}</p>
     </div>
     <div class="over-btn">
       <img src="../imgs/btnleft.png" alt="" @click="handleAgain">
@@ -25,7 +25,14 @@ onMounted(()=>{
 })
 const successMessage = ref("恭喜你获得胜利！！")
 const handleAgain = () => {
-  store.changeUpdownState(0)
+  if(store.beginState==="匹配中..."){
+    store.changeBeginState("开始匹配")
+    store.changeUpdownState(0)
+  }else{
+    store.changeBeginState("开始游玩")
+    store.changeUpdownState(0)
+  }
+  
 }
 
 const handleCheck = () => {

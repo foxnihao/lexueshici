@@ -48,10 +48,17 @@ const rightContent = "匹配游玩"
 
 const store = useStateStore();
 
+<<<<<<< HEAD
 onMounted(() => {
   imgl.value = props.imgl
   imgr.value = props.imgr
   imgb.value = props.imgb
+=======
+onMounted(async() => {
+  imgl.value = `../src${props.imgl}`
+  imgr.value = `../src${props.imgr}`
+  imgb.value = `../src${props.imgb}`
+>>>>>>> a3a90c2 (修改一些bug,错题看完返回，时间延迟)
   console.log("top", props)
   console.log(import.meta.url)
 })

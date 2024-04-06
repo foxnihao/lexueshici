@@ -46,8 +46,9 @@ const rightScore = ref(0)
 const inputValue = ref("花间一壶酒，独酌无相亲。 --李白《月下独酌》 ");
 const store = useStateStore();
 const turnsText = ref("到你啦！")
-let timer = ref(180)
-const dialogs = ref<Dialog[]>([
+
+const timer = ref(store.gameTime); 
+const dialogs = ref([
   // { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
   // { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);
@@ -83,6 +84,7 @@ const handleGetInput = async () => {
     store.addFeihua({ text, origin, position: "right" });
     inputValue.value = "";
     turnsText.value = "请等待...";
+    rightScore.value++;
 
     // 等待3秒后添加随机诗句
     await new Promise(resolve => setTimeout(resolve, 3000));
@@ -90,6 +92,7 @@ const handleGetInput = async () => {
     const randomPoetry = getPoetry();
     dialogs.value.push(randomPoetry);
     store.addFeihua(randomPoetry);
+    leftScore.value++;
     console.log("daia", store.feihuaPoetries)
     turnsText.value = "到你啦！";
     await new Promise(resolve => setTimeout(resolve, 5000)); // 等待3秒
@@ -110,17 +113,17 @@ const getPoetry = () => {
 };
 
 const startTimer = () => {
-  const intervalId = setInterval(() => {
+  let intervalId: string | number | NodeJS.Timeout | undefined;
+  intervalId = setInterval(async () => {
     timer.value--;
-    const inputCount = dialogs.value.length;
-    if (timer.value === 0 || dialogs.value.length === 6) {
+    if (timer.value === 0 || dialogs.value.length === store.endLength) {
       clearInterval(intervalId); // 清除定时器
+      await new Promise(resolve => setTimeout(resolve, 3000)); // 等待3秒
+      timer.value = 0; // 将计时器值设置为0
       store.changeFlywordState(2);
-      console.log("输入次数：" + inputCount);
     }
   }, 1000); // 每秒减少一秒
 };
-
 
 onMounted(() => {
   startTimer(); // 组件挂载时启动定时器

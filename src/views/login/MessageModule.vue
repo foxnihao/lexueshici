@@ -4,27 +4,33 @@
     <div class="nickname box">
       <span class="label">昵称</span>
       <span class="label">|</span>
-      <input type="text" class="input" placeholder="某某某" </div>
+      <input type="text" class="input" placeholder="某某某" v-model="store.name"> </div>
       <div class="gender box">
         <span class="label">性别</span>
         <span class="label">|</span>
-        <input type="text" class="input" placeholder="女">
+        <input type="text" class="input" placeholder="女" v-model="store.gender">
       </div>
       <div class="birth box">
         <span class="label">生日</span>
         <span class="label">|</span>
-        <input type="text" class="input" placeholder="1900年1月1日">
+        <input type="text" class="input" placeholder="1900年1月1日" v-model="store.birthdate ">
       </div>
       <div class="phone box">
         <span class="label">电话</span>
         <span class="label">|</span>
-        <input type="text" class="input" placeholder="12345678901">
+        <input type="text" class="input" placeholder="12345678901" v-model="store.phone">
       </div>
     </div>
 </template>
 
 <script setup lang="ts">
+<<<<<<< HEAD
 
+=======
+import { useStateStore } from '@/store'
+import { onMounted, ref } from 'vue'
+const store = useStateStore();
+>>>>>>> a3a90c2 (修改一些bug,错题看完返回，时间延迟)
 
 </script>
 
@@ -44,12 +50,14 @@
   } */
 .message-box {
   margin-top: 51rem;
+
   .avator {
     img {
       width: 164rem;
       height: 164rem;
     }
   }
+
   .box {
     margin-top: 39rem;
     width: 470rem;

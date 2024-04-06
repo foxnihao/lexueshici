@@ -41,10 +41,10 @@ const turnsText = ref("到你啦！")
 import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
 const dialogs = ref([
-  { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
-  { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
+  // { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
+  // { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);
-const timer = ref(180); // 初始倒计时时间为3分钟
+const timer = ref(store.gameTime); 
 const poetries = ref([
   { text: "当窗理云鬓，对镜贴花黄。", origin: "--《木兰辞》", position: 'left', read: false },
   { text: "采莲南塘秋，莲花过人头。", origin: "--《西洲曲》", position: 'left', read: false },
@@ -56,6 +56,7 @@ const poetries = ref([
   { text: "江流宛转绕芳甸，月照花林皆似霰。", origin: "--张若虚《春江花月夜》", position: 'left', read: false },
   { text: "昨夜闲潭梦落花，可怜春半不还家。", origin: "--张若虚《春江花月夜》", position: 'left', read: false },
   { text: "火树银花合，星桥铁锁开。", origin: "--苏味道《正月十五夜》", position: 'left', read: false },
+  { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left',read:false },
 ]);
 
 
@@ -97,16 +98,18 @@ const getPoetry = () => {
 };
 
 const startTimer = () => {
-  const intervalId = setInterval(() => {
+  let intervalId: string | number | NodeJS.Timeout | undefined;
+  intervalId = setInterval(async () => {
     timer.value--;
-    const inputCount = dialogs.value.length;
-    if (timer.value === 0 || dialogs.value.length === 6) {
+    if (timer.value === 0 || dialogs.value.length === store.endLength) {
       clearInterval(intervalId); // 清除定时器
+      await new Promise(resolve => setTimeout(resolve, 3000)); // 等待3秒
+      timer.value = 0; // 将计时器值设置为0
       store.changeFlywordState(2);
-      console.log("输入次数：" + inputCount);
     }
   }, 1000); // 每秒减少一秒
 };
+
 
 
 onMounted(() => {
