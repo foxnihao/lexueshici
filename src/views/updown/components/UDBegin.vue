@@ -9,7 +9,7 @@ import { onMounted } from 'vue';
 import {useStateStore}  from '@/store/index.ts'
 const store = useStateStore();
 onMounted(()=>{
-  console.log("ss",store.beginState)
+  // store.changeBeginState("开始游玩")
 })
 
 const handleEnterPersonGame = ()=>{

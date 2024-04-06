@@ -65,14 +65,16 @@ const dialogContainer = ref(null);
 // 记录对方出题的句子
 const lastPoetry = ref()
 // 生成一个介于min和max之间的随机整数
-const getPoetry = () => {
 
-  while (true) {
-    const randomIndex = Math.floor(Math.random() * poetries.value.length);
-    if (!poetries.value[randomIndex].read) {
-      return poetries.value[randomIndex];
-    }
+const getPoetry = () => {
+  const unreadPoetries = poetries.value.filter(poetry => !poetry.read);
+  if (unreadPoetries.length === 0) {
+    // 所有诗句都已读取，返回一个空对象或者其他指示诗句已读取完的信息
+    return { text: "", origin: "", position: "" ,next:"",read:""};
   }
+  const randomIndex = Math.floor(Math.random() * unreadPoetries.length);
+  unreadPoetries[randomIndex].read = true;
+  return unreadPoetries[randomIndex];
 };
 // 监听变化，我出题
 watch(dialogs.value, (_n, _o) => {
@@ -124,15 +126,11 @@ const handleGetInput = async () => {
 };
 
 
-const TIMER_INITIAL = 120; // 初始倒计时时间为3分钟
-const TIMER_END_DIALOGS_COUNT = 6;
-const TIMER_END_DELAY = 5000; // 5秒延迟
-
-const timer = ref(TIMER_INITIAL);
+const timer = ref(store.gameTime); 
 
 // 定时器函数，倒计时结束后记录 inputValue 的次数
 const startTimer = () => {
-  const intervalId = setInterval(() => {
+  const intervalId = setInterval(async() => {
     timer.value--;
     const inputCount = dialogs.value.length;
 
@@ -143,12 +141,11 @@ const startTimer = () => {
     }
 
     // 对话次数达到指定值
-    if (dialogs.value.length === TIMER_END_DIALOGS_COUNT) {
+    if (dialogs.value.length ===store.endLength) {
       clearInterval(intervalId);
-      setTimeout(() => {
+       await new Promise(resolve => setTimeout(resolve, 3000)); // 等待3秒
         timer.value = 0;
         handleTimerEnd(inputCount);
-      }, TIMER_END_DELAY);
     }
   }, 1000); // 每秒减少一秒
 };
@@ -163,6 +160,7 @@ onMounted(() => {
   store.truePoetries3 = 0
   store.allNums = 0
 });
+
 
 </script>
 
@@ -386,6 +384,9 @@ onMounted(() => {
   line-height: 49rem;
   color: rgba(255, 255, 255, 1);
   cursor: pointer;
+  font-size: 24rem;
+  font-weight: 400;
+  color: rgba(107, 0, 0, 1);
 }
 .bottom .btn:hover {
   background-color: rgb(140, 68, 68);

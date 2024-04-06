@@ -52,16 +52,10 @@ onMounted(() => {
   imgl.value = props.imgl
   imgr.value = props.imgr
   imgb.value = props.imgb
-  console.log("top", props)
   console.log(import.meta.url)
 })
 
 const handleReutrn = () => {
-  // if (store.flywordState === 1) {
-  //   console.log("sssssssssssssss")
-  //   store.handleReturn(0, 1);
-  // } else ()
-
   switch (store.flywordState) {
     case 0:
       store.handleReturn(0, 1)

@@ -1,10 +1,10 @@
 <template>
   <div class="ud-content">
     <div class="top">
-      <p class="top-p">第 {{orders[poIndex]}} 题</p>
+      <p class="top-p">第 {{ orders[poIndex] }} 题</p>
       <!-- <el-rate max="1" v-model="isCollected" clearable /> -->
       <img :src="isFavorited[poIndex] ? starImg : starNImg" @click="toggleFavorite(poIndex)" alt="favorite"
-              class="star" />
+        class="star" />
     </div>
     <div class="middle">
       <p>上句：{{ poetries[poIndex].givened }}</p>
@@ -15,7 +15,11 @@
     </div>
     <div class="bottom">
       <div @click="handleLast">上一题</div>
-      <div @click="handleNext">下一题</div>
+      <div @click="handleNext" v-if="poIndex !== poetries.length - 1">下一题</div>
+      <router-link class="router-link" to="/updown" v-if="poIndex === poetries.length - 1">
+        <div @click="handleRouter">结束</div>
+      </router-link>
+
     </div>
   </div>
 </template>
@@ -23,27 +27,35 @@
 import { onMounted, ref } from 'vue';
 
 import { useStateStore } from '@/store/index.ts'
+import router from '@/router';
 const store = useStateStore();
-const poetries = store.poetries
-onMounted(()=>{
+const poetries = store.poetries.slice(2)
+onMounted(() => {
   // poetries.value = store.poetries
-  console.log(store.poetries)
 })
-const orders = ref(["一","二","三","四","五","六","七"])
+const orders = ref(["一", "二", "三", "四", "五", "六", "七", "八", "九", "十","十一","十二","十三","十四"])
 const poIndex = ref(0)
 const handleNext = () => {
-  console.log("kkk")
-  if(poIndex.value<poetries.length){
+  if (poIndex.value < poetries.length) {
     poIndex.value++;
   }
 }
 const handleLast = () => {
-  if(poIndex.value){
+  if (poIndex.value) {
     poIndex.value--;
-  console.log("sss")
   }
 }
 
+const handleRouter = () => {
+  // 执行路由跳转到指定路径
+  router.push('/updown');
+  if (store.beginState !== "开始游玩") {
+    store.changeBeginState("开始匹配")
+  } else {
+    store.changeBeginState("开始游玩")
+  }
+  store.changeUpdownState(0)
+}
 const isFavorited = ref(store.poetries.map(() => false));
 
 const toggleFavorite = (index: number) => {
@@ -61,6 +73,17 @@ const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
   height: 2.5em;
   width: 2.5em;
 }
+
+.router-link {
+  text-decoration: none;
+  /* 移除下划线 */
+}
+
+.router-link:hover {
+  text-decoration: none;
+  /* 移除悬停时的下划线 */
+}
+
 .star {
   position: absolute;
   cursor: pointer;
@@ -68,6 +91,7 @@ const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
   max-height: 42.75rem;
   max-width: 45rem;
 }
+
 .ud-content {
   width: 1261rem;
   height: 642rem;

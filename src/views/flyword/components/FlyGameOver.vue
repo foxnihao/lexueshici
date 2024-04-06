@@ -20,7 +20,14 @@ const store = useStateStore()
 const successMessage = ref("恭喜你获得胜利！！")
 const handleAgain = ()=>{
   console.log("点击")
-  store.changeFlywordState(0)
+  if(store.beginState==="匹配中..."){
+    store.changeBeginState("开始匹配")
+    store.changeFlywordState(0)
+  }else{
+    store.changeBeginState("开始游玩")
+    store.changeFlywordState(0)
+  }
+  
 }
 
 const handleCheck = async()=>{
