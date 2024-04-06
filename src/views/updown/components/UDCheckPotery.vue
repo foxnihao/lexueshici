@@ -21,7 +21,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-const isCollected = ref(0)
+
 import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
 const poetries = store.poetries

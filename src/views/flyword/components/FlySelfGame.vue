@@ -34,7 +34,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
+
 import { onMounted, ref } from 'vue';
 const inputValue = ref("花间一壶酒，独酌无相亲。 --李白《月下独酌》");
 const turnsText = ref("到你啦！")

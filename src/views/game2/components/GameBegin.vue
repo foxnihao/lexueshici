@@ -5,8 +5,8 @@
     </div>
   </template>
   <script setup lang="ts">
-  import { onMounted, ref, watch } from 'vue';
-  const props = defineProps(['btnContent'])
+  import {  ref, watch } from 'vue';
+
   import {useGameStore} from '../../../store/game2'
   const store = useGameStore();
 

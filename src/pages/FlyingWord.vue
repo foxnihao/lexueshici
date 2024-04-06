@@ -3,7 +3,7 @@
     <Background />
     <div class="flyingword">
       <NewTopTab   :bgColor="'rgba(235, 192, 174, 1)'" :font-color="`rgba(77, 23, 0, 1)`"  :current-index="tabIndex" 
-      :imgl="`/views/flyword/imgs/topbtnl.png`"  :imgr="`/views/flyword/imgs/topbtnr.png`"  :imgb="'/views/flyword/imgs/back.png'" />
+      :imgl="imgl"  :imgr="imgr"  :imgb="imgb" />
         <div style="height: 30rem;"></div>
       <component :is="nowComponent"></component>
     </div>
@@ -20,6 +20,10 @@ import FlyCollect from '@/views/flyword/components/FlyCollect.vue';
 import {useStateStore}  from '@/store/index.ts'
 import { markRaw, onMounted, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
+
+import imgl from "@/views/flyword/imgs/topbtnl.png"
+import imgr from "@/views/flyword/imgs/topbtnr.png"
+import imgb from "@/views/flyword/imgs/back.png"
 const tabIndex = ref(0);
 
 const store = useStateStore();

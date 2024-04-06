@@ -44,9 +44,9 @@ import { onMounted, ref,  defineProps, defineEmits } from 'vue';
   
   
   onMounted(()=>{
-    imgl.value = `../src${props.imgl}`
-    imgr.value = `../src${props.imgr}`
-    imgb.value = `../src${props.imgb}`
+    imgl.value = props.imgl
+    imgr.value = props.imgr
+    imgb.value = props.imgb
     console.log("top",props)
     console.log(import.meta.url)
   })

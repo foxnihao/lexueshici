@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useGameStore } from '@/store/game2';
 
 
@@ -10,6 +10,7 @@ const props = defineProps<{
 const store=useGameStore();
 const {on}=store.next_qHook;
 on((data)=>{
+  console.log(data);
     store.board[store.q_id][props.index]=content.value;
 })
 const content = computed({
@@ -22,7 +23,7 @@ const content = computed({
     }
   }
 });
-const placeholderText = computed(() => props.value === " " ? "" : "content");
+
 const isReadonly=computed(()=>!store.boolBoard[store.q_id][props.index]);
 
 

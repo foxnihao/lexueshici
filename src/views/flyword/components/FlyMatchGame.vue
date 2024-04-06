@@ -13,20 +13,20 @@
     </div>
     <div class="middle">
       <div class="dialog" v-for="(dialog, index) in dialogs" :key="index">
-        <div v-if="dialog.position as string === 'right'" class="right">
+        <div v-if="(dialog as any).position === 'right'" class="right">
           <img src="../imgs/dialogr.png" class="dialogr" alt="">
           <img src="../imgs/ava1.png" class="avar" alt="">
           <div class="contentr">
-            <p class="up">{{ dialog.text }}</p>
-            <p class="down">{{ dialog.origin }}</p>
+            <p class="up">{{ (dialog as any).text }}</p>
+            <p class="down">{{ (dialog as any).origin }}</p>
           </div>
         </div>
-        <div v-else-if="dialog.position === 'left'" class="left">
+        <div v-else-if="(dialog as any).position === 'left'" class="left">
           <img src="../imgs/ava2.png" class="aval" alt="">
           <img src="../imgs/dialogl.png" class="dialogl" alt="">
           <div class="contentl">
-            <p class="up">{{ dialog.text }} </p>
-            <p class="down">{{ dialog.origin }}</p>
+            <p class="up">{{ (dialog as any).text }} </p>
+            <p class="down">{{ (dialog as any).origin }}</p>
           </div>
         </div>
 
@@ -47,7 +47,7 @@ const inputValue = ref("花间一壶酒，独酌无相亲。 --李白《月下�
 const store = useStateStore();
 const turnsText = ref("到你啦！")
 let timer = ref(180)
-const dialogs = ref([
+const dialogs = ref<Dialog[]>([
   // { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
   // { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);
@@ -66,7 +66,11 @@ const poetries = ref([
   { text: "火树银花合，星桥铁锁开。", origin: "--苏味道《正月十五夜》", position: 'left', read: false },
 ]);
 
-
+interface Dialog {
+  text: string;
+  origin: string;
+  position: string;
+}
 
 const handleGetInput = async () => {
   store.truePoetries3 += 1;

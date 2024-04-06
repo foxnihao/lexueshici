@@ -6,7 +6,7 @@
   </template>
   <script setup lang="ts">
   import { ref, watch } from 'vue';
-  const props = defineProps(['btnContent'])
+
   import {useGameStore} from '../../../store/game4'
   const store = useGameStore();
 

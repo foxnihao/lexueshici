@@ -36,7 +36,7 @@ import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
 const inputValue = ref("鹅鹅鹅，曲项向天歌。")
 const turnsText = ref("出题中")
-const poetries = ref([
+const poetries = ref<Dialog[]>([
   { text: "鹅鹅鹅，曲项向天歌。", position: "right", next: "白毛浮绿水，红掌拨清波。", read: false },
   { text: "山不在高，有仙则名。", position: "left", next: "水不在深，有龙则灵。", read: false },
   { text: "明月几时有？把酒问青天。", position: "left", next: "不知天上宫阙，今夕是何年。", read: false },
@@ -48,13 +48,19 @@ const poetries = ref([
   { text: "月落乌啼霜满天，江枫渔火对愁眠。", position: 'left', next: '姑苏城外寒山寺，夜半钟声到客船。', read: false },
   { text: "千里莺啼绿映红，水村山郭酒旗风。", position: 'left', next: '南朝四百八十寺，多少楼台烟雨中。', read: false }
 ]);
+interface Dialog {
+  text: string;
+  position: string;
+  next: string;
+  read:boolean;
+}
 
-const dialogs = ref([
+const dialogs = ref<Dialog[]>([
   // { text: "鹅鹅鹅，曲项向天歌。", position: "right" },
   // { text: "白毛浮绿水，红掌拨清波。", position: "left" },
   // { text: "千里莺啼绿映红，水村山郭酒旗风。", position: "left" },
 ]);
-const chatContainer = ref(null);
+
 const dialogContainer = ref(null);
 // 记录对方出题的句子
 const lastPoetry = ref()
@@ -85,7 +91,7 @@ const handleGetInput = async () => {
   const myInput = inputValue.value.trim();
 
   if (dialogs.value.length % 4 === 3) { // 答题逻辑
-    dialogs.value.push({ text: myInput, position: "right" });
+    dialogs.value.push({ text: myInput, position: "right" }as Dialog);
     if (store.checkoutIsTrue(lastPoetry.value.next, myInput)) {
       store.truePoetries3++;
     } else {
@@ -94,7 +100,7 @@ const handleGetInput = async () => {
     inputValue.value = "";
   } else if (dialogs.value.length % 4 === 0) { // 出题逻辑
     store.truePoetries3++;
-    dialogs.value.push({ text: inputValue.value, position: "right" });
+    dialogs.value.push({ text: inputValue.value, position: "right" }as Dialog);
     turnsText.value = "请作答";
     var nextp = null
     poetries.value.forEach(poetry => {
@@ -106,14 +112,14 @@ const handleGetInput = async () => {
     inputValue.value = "";
 
     await new Promise(resolve => setTimeout(resolve, 3000)); // 等待3秒
-    dialogs.value.push({ text: nextp.next, position: "left" });
+    dialogs.value.push({ text: (nextp as unknown as Dialog).next, position: "left" }as Dialog);
     turnsText.value = "出题中";
 
     await new Promise(resolve => setTimeout(resolve, 2000)); // 等待2秒
 
     turnsText.value = "到你啦";
     lastPoetry.value = getPoetry();
-    dialogs.value.push({ text: lastPoetry.value.text, position: "left" });
+    dialogs.value.push({ text: lastPoetry.value.text, position: "left" } as Dialog);
   }
 };
 

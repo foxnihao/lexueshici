@@ -14,7 +14,7 @@
     </div>
   </template>
   <script setup lang="ts">
-  import { computed, onMounted, ref } from 'vue';
+  import {   ref } from 'vue';
   import {useGameStore} from '../../../store/game2'
   const successMessage = ref("恭喜你完成答题！！")
   const store=useGameStore();
@@ -26,7 +26,6 @@
     store.changeGameState(3)
   }
 
-  const perc=computed(()=>Math.floor((store.num_right/store.q_num)*100))
   
   
   

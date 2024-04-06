@@ -14,7 +14,7 @@
     </div>
   </template>
   <script setup lang="ts">
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, ref } from 'vue';
   import {useGameStore} from '../../../store/game4'
   const successMessage = ref("恭喜你完成答题！！")
   const store=useGameStore();

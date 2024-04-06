@@ -37,18 +37,13 @@ import timer from '@/components/Timer.vue'
 
 
   
-    const choose=ref(-1);
+
     const store=useGameStore();
-    const handleClick=(index: number)=>{
-        choose.value=index;
-    }
+
     const isDuelGame=computed(()=>store.beginState==="开始匹配");
     const total_questions=ref(2);
     const isLastQuestion = computed(() => store.q_id === total_questions.value);
-    const ischoosed=(index: number)=>{
-      if(index===choose.value) return true
-      else return false
-    }
+
     const player1_score=ref(0);
     const player2_score=ref(0);
     const numbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];

@@ -40,7 +40,9 @@
 import { computed, ref } from 'vue';
 import {useGameStore} from '../../../store/game4'
 import timer from '@/components/Timer.vue'
-    
+import pic1 from '../imgs/pic1.png'
+import pic2 from '../imgs/pic2.png'
+import pic3 from '../imgs/pic3.png'
     const choose=ref(-1);
     const store=useGameStore();
     const handleClick=(index: number)=>{
@@ -57,24 +59,15 @@ import timer from '@/components/Timer.vue'
     const player2_score=ref(0);
     const numbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
     const images = [
-  '../imgs/pic1.png',
-  '../imgs/pic2.png',
-  '../imgs/pic3.png',
-  '../imgs/pic4.png',
-  '../imgs/pic1.png',
-  '../imgs/pic1.png',
-  '../imgs/pic1.png',
-  '../imgs/pic1.png',
-  '../imgs/pic1.png',
-  '../imgs/pic1.png',
+  pic1,pic2,pic3,pic1,pic1,pic1,pic1,pic1,pic1,pic1
 ];
 const options=[["A.爆竹声中一岁除，春风送暖入屠苏","B.蓬头稚子学垂纶，侧坐莓苔草映身","C.儿童急走追黄蝶，飞入菜花无处寻","D.知有儿童挑促织，夜深篱落一灯明"],
                   ["A.桃花潭水深千尺，不及汪伦送我情","B.春潮带雨晚来急，野渡无人舟自横","C.沉舟侧畔千帆过，病树前头万木春","D.两岸青山相对出，孤帆一片日边来"],
                   ["A.相看两不厌，只有敬亭山","B.天子呼来不上船，自称臣是酒中仙","C.天生我材必有用，千金散尽还复来","D.不识庐山真面目，只缘身在此山中"]]
     const player2_buff=[0,1,0,0,1,1,0,0,1,0];
     const currentNumber = computed(() => numbers[store.q_id - 1]);
-    const currentImageURL = computed(() => images[store.q_id - 1]);
-    const currentImage=computed(()=>new URL(currentImageURL.value,import.meta.url).href);
+
+    const currentImage=computed(()=>images[store.q_id-1]);
 
     const max_q=ref(0);
     const next_q=()=>{
@@ -88,7 +81,7 @@ const options=[["A.爆竹声中一岁除，春风送暖入屠苏","B.蓬头稚�
         player2_score.value+=player2_buff[store.q_id-1]
       }
         store.ans_stack[store.q_id-1]=choose.value;
-        console.log(currentImageURL.value);
+
 
         
           if(isLastQuestion.value) {

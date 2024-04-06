@@ -73,7 +73,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, Ref } from 'vue'
+import {  onMounted, reactive, ref, Ref } from 'vue'
 
 import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
@@ -331,6 +331,9 @@ const starNImg = new URL('../imgs/star_n.png', import.meta.url).href;
   border: none;
   outline: none;
   padding-left: 13rem;
+  font-size: 24rem;
+  font-weight: 400;
+  color: rgba(77, 23, 0, 1);
 
 }
 </style>

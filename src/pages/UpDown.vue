@@ -3,7 +3,7 @@
     <Background />
     <div class="updown">
       <NewTopTab  :current-index="tabIndex" :font-color="`rgba(107,0,0, 1)`" :bg-color=" `rgba(242, 196, 196, 1)`"
-      :imgl="`/views/updown/imgs/topbtnl.png`"  :imgr="`/views/updown/imgs/topbtnr.png`"  :imgb="'/views/updown/imgs/back.png'"/>
+      :imgl="imgl"  :imgr="imgr"  :imgb="imgb"/>
         <div style="height: 30rem;"></div>
       <component :is="nowComponent"></component>
     </div>
@@ -20,6 +20,11 @@ import UDSelfGame from "@/views/updown/components/UDSelfGame.vue"
 import UDMatchGame from '@/views/updown/components/UDMatchGame.vue'
 import UDGameOver from "@/views/updown/components/UDGameOver.vue"
 import UDCheckPotery from "@/views/updown/components/UDCheckPotery.vue"
+import imgl from "@/views/updown/imgs/topbtnl.png"
+import imgr from "@/views/updown/imgs/topbtnr.png"
+import imgb from "@/views/updown/imgs/back.png"
+
+
 const tabIndex = ref(0);
 
 const store = useStateStore();

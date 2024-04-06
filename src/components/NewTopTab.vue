@@ -49,9 +49,9 @@ const rightContent = "匹配游玩"
 const store = useStateStore();
 
 onMounted(() => {
-  imgl.value = `../src${props.imgl}`
-  imgr.value = `../src${props.imgr}`
-  imgb.value = `../src${props.imgb}`
+  imgl.value = props.imgl
+  imgr.value = props.imgr
+  imgb.value = props.imgb
   console.log("top", props)
   console.log(import.meta.url)
 })

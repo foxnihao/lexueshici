@@ -2,7 +2,7 @@
     <div>
         <Background />
         <div class="flyingword">
-            <TopTab_t :color="'rgba(193, 202, 232, 1)'" :imgb="'/views/game4/imgs/back.png'" :imgl="`/views/game4/imgs/topbtn_l.png`" :imgr="`/views/game4/imgs/topbtn_r.png`" :font-color="'rgba(0, 15, 66, 1)'" :currentIndex="currentIndex" :handle-left-click1="handleLeftClick1" :handle-left-click2="handleLeftClick2" :handle-right-click1="handleRightClick1" :handle-right-click2="handleRightClick2"
+            <TopTab_t :color="'rgba(193, 202, 232, 1)'" :imgb="imgb" :imgl="imgl" :imgr="imgr" :font-color="'rgba(0, 15, 66, 1)'" :currentIndex="currentIndex" :handle-left-click1="handleLeftClick1" :handle-left-click2="handleLeftClick2" :handle-right-click1="handleRightClick1" :handle-right-click2="handleRightClick2"
  />
 
             <component :is="nowComponent"></component>
@@ -18,7 +18,9 @@ import GamePlay from '@/views/game4/components/GamePlay.vue'
 import GameBack from '@/views/game4/components/GameBack.vue';
 import { useGameStore } from '@/store/game4.ts'
 import { markRaw, onMounted, ref, watch } from 'vue';
-
+import imgb from '@/views/game4/imgs/back.png'
+import imgl from '@/views/game4/imgs/topbtn_l.png'
+import imgr from '@/views/game4/imgs/topbtn_r.png'
 const store = useGameStore();
 const nowComponent = ref(markRaw(GameBegin));
 onMounted(() => {
