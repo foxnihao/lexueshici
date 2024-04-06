@@ -48,27 +48,14 @@ const rightContent = "匹配游玩"
 
 const store = useStateStore();
 
-<<<<<<< HEAD
 onMounted(() => {
   imgl.value = props.imgl
   imgr.value = props.imgr
   imgb.value = props.imgb
-=======
-onMounted(async() => {
-  imgl.value = `../src${props.imgl}`
-  imgr.value = `../src${props.imgr}`
-  imgb.value = `../src${props.imgb}`
->>>>>>> a3a90c2 (修改一些bug,错题看完返回，时间延迟)
-  console.log("top", props)
   console.log(import.meta.url)
 })
 
 const handleReutrn = () => {
-  // if (store.flywordState === 1) {
-  //   console.log("sssssssssssssss")
-  //   store.handleReturn(0, 1);
-  // } else ()
-
   switch (store.flywordState) {
     case 0:
       store.handleReturn(0, 1)

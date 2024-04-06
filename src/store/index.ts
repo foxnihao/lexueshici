@@ -15,17 +15,10 @@ export const useStateStore = defineStore('state', () => {
     console.log(newstate)
     flywordState.value = newstate;
   }
-<<<<<<< HEAD
-  const message = ref(["恭喜你获得胜利！！","10"])
-  
-  const changeMessage = ()=>{
-    
-=======
   const message = ref(["恭喜你获得胜利！！", "10"])
 
   const changeMessage = (news: any) => {
 
->>>>>>> a3a90c2 (修改一些bug,错题看完返回，时间延迟)
   }
 
   const changeUpdownState = (newstate: any) => {

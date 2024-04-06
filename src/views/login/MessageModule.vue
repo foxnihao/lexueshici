@@ -24,13 +24,9 @@
 </template>
 
 <script setup lang="ts">
-<<<<<<< HEAD
-
-=======
 import { useStateStore } from '@/store'
 import { onMounted, ref } from 'vue'
 const store = useStateStore();
->>>>>>> a3a90c2 (修改一些bug,错题看完返回，时间延迟)
 
 </script>
 
