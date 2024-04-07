@@ -17,9 +17,7 @@ export const useStateStore = defineStore('state', () => {
   }
   const message = ref(["恭喜你获得胜利！！", "10"])
 
-  const changeMessage = (news: any) => {
 
-  }
 
   const changeUpdownState = (newstate: any) => {
     console.log(newstate)
@@ -83,7 +81,7 @@ export const useStateStore = defineStore('state', () => {
   const phone = "123456789"
 
   return {
-    beginState, flywordState, updownState, message, changeMessage, changeBeginState, changeFlywordState, changeUpdownState, handleReturn,
+    beginState, flywordState, updownState, message, changeBeginState, changeFlywordState, changeUpdownState, handleReturn,
     checkoutIsTrue, addErr, addFeihua, truePoetries1, truePoetries2, truePoetries3, truePoetries4, allNums,
     poetries, feihuaPoetries, feihuaPoetriesclear, endLength, gameTime,
     name, birthdate, gender, phone

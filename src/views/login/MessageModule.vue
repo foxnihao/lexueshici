@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { useStateStore } from '@/store'
-import { onMounted, ref } from 'vue'
+
 const store = useStateStore();
 
 </script>

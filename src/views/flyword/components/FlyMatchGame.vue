@@ -48,7 +48,7 @@ const store = useStateStore();
 const turnsText = ref("到你啦！")
 
 const timer = ref(store.gameTime); 
-const dialogs = ref([
+const dialogs = ref<Dialog[]>([
   // { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
   // { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);

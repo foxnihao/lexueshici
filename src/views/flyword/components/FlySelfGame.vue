@@ -40,10 +40,15 @@ const inputValue = ref("花间一壶酒，独酌无相亲。 --李白《月下�
 const turnsText = ref("到你啦！")
 import { useStateStore } from '@/store/index.ts'
 const store = useStateStore();
-const dialogs = ref([
+const dialogs = ref<Dialog[]>([
   // { text: '花间一壶酒，独酌无相亲。', origin: '--李白《月下独酌》', position: 'right' },
   // { text: '言入黄花川，每逐青溪水。', origin: '--王维《青溪》', position: 'left' },
 ]);
+interface Dialog {
+  text: string;
+  origin: string;
+  position: string;
+}
 const timer = ref(store.gameTime); 
 const poetries = ref([
   { text: "当窗理云鬓，对镜贴花黄。", origin: "--《木兰辞》", position: 'left', read: false },
