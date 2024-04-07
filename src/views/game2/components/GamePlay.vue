@@ -41,7 +41,7 @@ import timer from '@/components/Timer.vue'
     const store=useGameStore();
 
     const isDuelGame=computed(()=>store.beginState==="开始匹配");
-    const total_questions=ref(2);
+    const total_questions=ref(1);
     const isLastQuestion = computed(() => store.q_id === total_questions.value);
 
     const player1_score=ref(0);

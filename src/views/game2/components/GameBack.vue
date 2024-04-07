@@ -37,7 +37,7 @@ import Tile_back from './Tile_back.vue';
     const store=useGameStore();
 
 
-    const total_questions=ref(2);
+    const total_questions=ref(1);
     const isLastQuestion = computed(() => store.q_id === total_questions.value);
 
     const numbers = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
