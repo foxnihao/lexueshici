@@ -3,7 +3,7 @@
       <p class="over-message">{{ successMessage }}</p>
       <div class="over-img">
         <img src="@/assets/imgs/success.png" alt="">
-        <p>答对3题</p>
+        <p>答对2题</p>
         <p>正确率100%</p>
       </div>
       <div class="over-btn">
